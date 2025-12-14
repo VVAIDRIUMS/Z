@@ -1,6 +1,5 @@
 import uvicorn
 from fastapi import FastAPI
-from app.api.sample import router as sample_router
 from app.api.auth import router as auth_router
 from app.api.roles import router as roles_router
 from app.router.favorites import router as favorites_router
@@ -11,7 +10,6 @@ from app.router.users import router as users_router
 
 app = FastAPI(title="Сайт Знакомств", version="0.0.1")
 
-app.include_router(sample_router)
 app.include_router(auth_router)
 app.include_router(roles_router)
 app.include_router(favorites_router)
