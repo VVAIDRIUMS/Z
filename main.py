@@ -23,7 +23,6 @@ app.include_router(users_router)
 #     uvicorn.run(app=app)
 
 if __name__ == "__main__":
-    import uvicorn
     port = 8001  # МЕНЯЕМ 8000 на 8001
     print(f"🚀 Запуск сервера на порту {port}...")
     print(f"📚 Документация: http://localhost:{port}/docs")
