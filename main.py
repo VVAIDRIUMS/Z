@@ -19,9 +19,6 @@ app.include_router(roles_router)
 app.include_router(user_filters_router)
 app.include_router(users_router)
 
-# if __name__ == "__main__":
-#     uvicorn.run(app=app)
-
 if __name__ == "__main__":
     port = 8001  # МЕНЯЕМ 8000 на 8001
     print(f"🚀 Запуск сервера на порту {port}...")

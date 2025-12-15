@@ -11,8 +11,13 @@ from app.config import settings
 
 # TODO Добавить сюда импорт созданных моделей
 # Пример:
-from app.models.users import UserModel
+from app.models.favorites import FavoriteModel
+from app.models.likes import LikeModel
+from app.models.profiles import ProfileModel
 from app.models.roles import RoleModel
+from app.models.user_filters import User_filterModel
+from app.models.users import UserModel
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
