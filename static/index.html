@@ -1,87 +1,102 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Сайт Знакомств</title>
-    <link rel="stylesheet" href="/static/style.css"></head>
+  <script src="C:\Users\Vadimka\Documents\Сайт\main.js"></script>
+  <link rel="stylesheet" href="/static/style.css">
+  <meta charset="UTF-8" />
+  <title>Знакомства</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+</head>
 <body>
-    <div id="app">
-        <header class="top-bar">
-            <div class="logo-row">
-                <div class="logo">Сайт Знакомств</div>
-            </div>
-            <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">🌙</button>
-            <button id="saved-btn" class="saved-btn header-saved" aria-label="Сохраненные">❤️</button>
-            <button id="who-liked-btn" class="saved-btn header-saved" aria-label="Кто лайкнул">👤</button>
-            <button id="create-btn" class="create-btn" aria-label="Создать профиль">+</button>
-            <button class="profile-btn" aria-label="Профиль">
-                <span class="profile-dot"></span>
-            </button>
-        </header>
+  <div id="app">
+    <header class="top-bar">
+      <div class="logo-row" title="Кликните, чтобы вставить URL логотипа">
+        <img id="logo-img" class="logo-img" src="" alt="Логотип" />
+        <div class="logo">Взгляд</div>
+      </div>
+      <!-- City filter: choose which city pool will show up -->
+      <select id="city-filter" class="city-filter" aria-label="Фильтр города">
+        <option value="all">Все города</option>
+      </select>
+      <!-- Gender filter: choose which gender pool will show up -->
+      <select id="gender-filter" class="city-filter" aria-label="Фильтр по полу">
+        <option value="all">Любой пол</option>
+      </select>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">🌓</button>
+      <button id="saved-btn" class="saved-btn header-saved" aria-label="Понравившиеся">❤</button>
+      <button id="who-liked-btn" class="saved-btn header-saved" aria-label="Кто лайкнул меня">👀</button>
+      <button id="create-btn" class="create-btn" aria-label="Создать анкету">＋</button>
+      <button class="profile-btn" aria-label="Профиль">
+        <span class="profile-dot"></span>
+      </button>
+    </header>
 
-        <main class="main">
-            <div class="card-stack">
-                <!-- Cards will be injected here -->
-            </div>
-    </div>
+    <main class="main">
+      <div class="card-stack">
+        <!-- Cards will be injected here -->
+      </div>
+    </main>
 
-    <!-- Liked people panel -->
+    <!-- Liked people panel (moved out of <main> so it behaves as a separate window) -->
     <section class="liked-panel" aria-hidden="true">
-        <header class="liked-header">
-            <button class="back-btn" aria-label="Назад">←</button>
-            <span class="liked-title"><span class="liked-title-heart" aria-hidden="true">❤️</span>Понравившиеся</span>
-        </header>
-        <div class="liked-list">
-            <!-- Liked profiles will be rendered here -->
-        </div>
+      <header class="liked-header">
+        <button class="back-btn" aria-label="Назад">←</button>
+        <span class="liked-title"><span class="liked-title-heart" aria-hidden="true">❤</span>Понравившиеся</span>
+      </header>
+      <div class="liked-list">
+        <!-- Liked profiles will be rendered here -->
+      </div>
     </section>
 
-    <!-- Who liked me panel -->
+    <!-- "Who liked me" panel: shows profiles that liked you -->
     <section class="who-liked-panel" aria-hidden="true">
-        <header class="liked-header">
-            <button class="who-back-btn back-btn" aria-label="Назад">←</button>
-            <span class="liked-title"><span class="liked-title-heart" aria-hidden="true">❤️</span>Кто лайкнул меня</span>
-        </header>
-        <div class="who-liked-list">
-            <!-- Profiles who liked the user will be rendered here -->
-        </div>
+      <header class="liked-header">
+        <button class="who-back-btn back-btn" aria-label="Назад">←</button>
+        <span class="liked-title"><span class="liked-title-heart" aria-hidden="true">👀</span>Кто лайкнул меня</span>
+      </header>
+      <div class="who-liked-list">
+        <!-- Profiles who liked the user will be rendered here -->
+      </div>
     </section>
 
-    <!-- Profile detail modal -->
+    <!-- Profile detail modal (opens from liked list) -->
     <div class="liked-detail-modal" aria-hidden="true">
-        <header class="liked-detail-header">
-            <button class="detail-back-btn" aria-label="Назад">←</button>
-            <span class="liked-detail-title">Профиль</span>
-        </header>
-        <div class="liked-detail-content">
-            <!-- Filled dynamically -->
-        </div>
+      <header class="liked-detail-header">
+        <button class="detail-back-btn" aria-label="Назад">←</button>
+        <span class="liked-detail-title">Профиль</span>
+      </header>
+      <div class="liked-detail-content">
+        <!-- Filled dynamically -->
+      </div>
     </div>
+
+    <!-- registration panel removed -->
 
     <!-- Create profile panel -->
     <section class="create-panel" aria-hidden="true">
-        <div class="create-card">
-            <header class="create-header">
-                <h3>Создать профиль</h3>
-                <button class="create-close" aria-label="Закрыть">✕</button>
-            </header>
-            <div class="create-body">
-                <input id="create-name" placeholder="Имя">
-                <input id="create-age" type="number" placeholder="Возраст">
-                <input id="create-city" placeholder="Город">
-                <input id="create-photo" placeholder="URL фото">
-                <input id="create-contact" placeholder="Контакт">
-                <textarea id="create-bio" placeholder="О себе"></textarea>
-                <input id="create-tags" placeholder="Теги (через запятую)">
-            </div>
-            <div class="create-actions">
-                <button id="create-preview" class="reg-btn subtle">Предпросмотр</button>
-                <button id="create-save" class="reg-btn">Сохранить</button>
-            </div>
-            <div class="create-preview-area" aria-hidden="true"></div>
+      <div class="create-card">
+        <header class="create-header">
+          <h3>Создать анкету</h3>
+          <button class="create-close" aria-label="Закрыть">✕</button>
+        </header>
+        <div class="create-body">
+          <input id="create-name" placeholder="Имя" />
+          <input id="create-age" type="number" placeholder="Возраст" />
+          <input id="create-city" placeholder="Город (например, Москва • онлайн)" />
+          <input id="create-photo" placeholder="URL фото" />
+          <input id="create-contact" placeholder="Контакт (например, @ваш_ник или телефон)" />
+          <textarea id="create-bio" placeholder="Кратко о себе"></textarea>
+          <input id="create-tags" placeholder="Теги через запятую" />
+          <div class="create-actions">
+            <button id="create-preview" class="reg-btn subtle">Просмотреть</button>
+            <button id="create-save" class="reg-btn">Сохранить в стеке</button>
+          </div>
+          <div class="create-preview-area" aria-hidden="true"></div>
         </div>
+      </div>
     </section>
+  </div>
 
-    <script type="module" src="/static/main.js"></script></body>
+  <script type="module" src="/static/main.js"></script>
+</body>
 </html>

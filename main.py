@@ -47,19 +47,7 @@ async def get_profiles():
         {"id": 12, "name": "Роман", "age": 33, "city": "Омск", "bio": "Фотограф, снимаю ночью", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
         {"id": 13, "name": "Юля", "age": 24, "city": "Уфа", "bio": "Йога и медитация", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80"},
         {"id": 14, "name": "Артем", "age": 26, "city": "Челябинск", "bio": "Спортсмен, тренер по фитнесу", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
-        {"id": 15, "name": "Вика", "age": 28, "city": "Пермь", "bio": "Блогер, пишу о путешествиях", "photo": "https://images.pexels.com/photos/774909/909.jpeg?w=800&q=80"},
-        {"id": 16, "name": "Алексей", "age": 32, "city": "Тюмень", "bio": "Архитектор, люблю проектировать", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
-        {"id": 17, "name": "Даша", "age": 21, "city": "Иркутск", "bio": "Студентка, учусь на юриста", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909,.jpeg?w=800&q=80"},
-        {"id": 18, "name": "Григорий", "age": 35, "city": "Хабаровск", "bio": "Военный, служу в армии", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
-        {"id": 19, "name": "Таня", "age": 25, "city": "Сочи", "bio": "Бармен, люблю коктейли", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80"},
-        {"id": 20, "name": "Виталий", "age": 29, "city": "Краснодар", "bio": "Фермер, выращиваю овощи", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80"},
-        {"id": 21, "name": "Лиза", "age": 23, "city": "Нижний Новгород", "bio": "Ветеринар, люблю животных", "photo": "https://images.pexels.com/photos/3777916/pexels-photo-3777916.jpeg?w=800&q=80"},
-        {"id": 22, "name": "Сергей", "age": 31, "city": "Ярославль", "bio": "Учитель истории, люблю читать", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
-        {"id": 23, "name": "Настя", "age": 27, "city": "Владимир", "bio": "Психолог, помогаю людям", "photo": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=800&q=80"},
-        {"id": 24, "name": "Денис", "age": 28, "city": "Тверь", "bio": "Музыкант, играю на барабанах", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
-        {"id": 25, "name": "Марина", "age": 26, "city": "Томск", "bio": "Биолог, изучаю природу", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80"},
-        {"id": 26, "name": "Иван", "age": 34, "city": "Калуга", "bio": "Строитель, строю дома", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80"},
-        {"id": 27, "name": "Кристина", "age": 24, "city": "Рязань", "bio": "Журналист, пишу статьи", "photo": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80"}
+        {"id": 15, "name": "Вика", "age": 28, "city": "Пермь", "bio": "Блогер, пишу о путешествиях", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80"}
     ]
 
 @app.on_event("startup")
