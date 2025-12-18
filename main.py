@@ -7,6 +7,7 @@ from app.router.likes import router as likes_router
 from app.router.profiles import router as profiles_router
 from app.router.user_filters import router as user_filters_router
 from app.router.users import router as users_router
+from app.database.database import create_tables
 
 app = FastAPI(title="Сайт Знакомств", version="0.0.1")
 
@@ -16,6 +17,11 @@ app.include_router(favorites_router)
 app.include_router(likes_router)
 app.include_router(profiles_router)
 app.include_router(users_router)
+
+@app.on_event("startup")
+async def startup_event():
+    await create_tables()
+    print("✅ База данных инициализирована")
 
 if __name__ == "__main__":
     port = 8001  # МЕНЯЕМ 8000 на 8001
