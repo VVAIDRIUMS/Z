@@ -189,19 +189,17 @@ button {
 /* Action buttons positioning */
 .card {
     position: relative;
-    padding-top: 70px;
 }
 
 .action-buttons {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    right: 16px;
+    bottom: 20px;
+        left: 0;
+        right: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    pointer-events: none;
-}
+    justify-content: center;
+        gap: 20px;
+        pointer-events: none;
 
 .action-buttons button {
     pointer-events: auto;
