@@ -19,6 +19,7 @@ app.include_router(favorites_router)
 app.include_router(likes_router)
 app.include_router(profiles_router)
 app.include_router(users_router)
+app.include_router(user_filters_router)
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
