@@ -67,6 +67,10 @@ function renderCard() {
     card.className = 'card';
     card.innerHTML = `
         <div class="card-inner">
+                        <div class="action-buttons">
+                    <button class="skip-btn" onclick="nextCard()">✕</button>
+                    <button class="like-btn" onclick="likeProfile()">♥</button>
+                </div>
             <div class="card-photo" style="background-image: url(${profile.photo || ''})"></div>
             <div class="card-info">
                 <div class="card-name-age">${profile.name}, ${profile.age}</div>
