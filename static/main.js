@@ -88,6 +88,16 @@ function nextCard() {
     renderCard();
 }
 
+// Like current profile
+function likeProfile() {
+    if (currentIndex < profiles.length) {
+        const profile = profiles[currentIndex];
+        likedProfiles.push(profile);
+        localStorage.setItem('likedProfiles', JSON.stringify(likedProfiles));
+        nextCard();
+    }
+}
+
 // Swipe handlers
 let startX = 0;
 if (cardStack) {
