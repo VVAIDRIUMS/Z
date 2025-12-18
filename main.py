@@ -36,7 +36,7 @@ async def get_profiles():
         {"id": 1, "name": "Анна", "age": 24, "city": "Москва", "bio": "Люблю кофе и путешествия", "photo": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80"},
         {"id": 2, "name": "Данил", "age": 27, "city": "Санкт-Петербург", "bio": "Музыка, спорт, кино", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80"},
         {"id": 3, "name": "Катя", "age": 22, "city": "Москва", "bio": "Фотограф и художник", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80"},
-        {"id" 4, "name": "Илья", "age": 29, "city": "Екатеринбург", "bio": "IT-специалист, люблю программировать", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
+        {"id": 4, "name": "Илья", "age": 29, "city": "Екатеринбург", "bio": "IT-специалист, люблю программировать", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
         {"id": 5, "name": "Маша", "age": 26, "city": "Казань", "bio": "Кондитер, пеку торты", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80"},
         {"id": 6, "name": "Олег", "age": 31, "city": "Новосибирск", "bio": "Инженер, увлекаюсь техникой", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
         {"id": 7, "name": "Света", "age": 23, "city": "Владивосток", "bio": "Художница, рисую портреты", "photo": "https://images.pexels.com/photos/3777916/pexels-photo-3777916.jpeg?w=800&q=80"},
