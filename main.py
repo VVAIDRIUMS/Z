@@ -47,10 +47,9 @@ async def get_profiles():
         {"id": 12, "name": "Роман", "age": 33, "city": "Омск", "bio": "Фотограф, снимаю ночью", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
         {"id": 13, "name": "Юля", "age": 24, "city": "Уфа", "bio": "Йога и медитация", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80"},
         {"id": 14, "name": "Артем", "age": 26, "city": "Челябинск", "bio": "Спортсмен, тренер по фитнесу", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
-        {"id": 15, "name": "Вика", "age": 28, "city": "Пермь", "bio": "Блогер, пишу о путешествиях", "photo": "https://images.pexels.com/photos/774909/
-        pexels-photo-774909.jpeg?w=800&q=80"}
+        {"id": 15, "name": "Вика", "age": 28, "city": "Пермь", "bio": "Блогер, пишу о путешествиях", "photo": "https://images.pexels.com/photos/774909/909.jpeg?w=800&q=80"}
                                           {"id": 16, "name": "Алексей", "age": 32, "city": "Тюмень", "bio": "Архитектор, люблю проектировать", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
-                {"id": 17, "name": "Даша", "age": 21, "city": "Иркутск", "bio": "Студентка, учусь на юриста", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80"},
+                {"id": 17, "name": "Даша", "age": 21, "city": "Иркутск", "bio": "Студентка, учусь на юриста", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909,.jpeg?w=800&q=80"},
                 {"id": 18, "name": "Григорий", "age": 35, "city": "Хабаровск", "bio": "Военный, служу в армии", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
                 {"id": 19, "name": "Таня", "age": 25, "city": "Сочи", "bio": "Бармен, люблю коктейли", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80"},
         {"id": 20, "name": "Виталий", "age": 29, "city": "Краснодар", "bio": "Фермер, выращиваю овощи", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80"},
