@@ -1,5 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from app.api.auth import router as auth_router
 from app.api.roles import router as roles_router
 from app.router.favorites import router as favorites_router
@@ -17,6 +19,37 @@ app.include_router(favorites_router)
 app.include_router(likes_router)
 app.include_router(profiles_router)
 app.include_router(users_router)
+
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Root endpoint - serve the frontend
+@app.get("/")
+async def read_root():
+    return FileResponse("static/index.html")
+
+# API endpoint to get profiles (demo)
+@app.get("/api/profiles")
+async def get_profiles():
+    # Return sample profiles for demo
+    return [
+        {
+            "id": 1,
+            "name": "Анна",
+            "age": 24,
+            "city": "Москва",
+            "bio": "Люблю кофе и путешествия",
+            "photo": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80"
+        },
+        {
+            "id": 2,
+            "name": "Данил",
+            "age": 27,
+            "city": "Санкт-Петербург",
+            "bio": "Музыка, спорт, кино",
+            "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80"
+        }
+    ]
 
 @app.on_event("startup")
 async def startup_event():
