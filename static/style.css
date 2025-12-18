@@ -11,6 +11,52 @@ body {
     color: #1d1b16;
 }
 
+/* Dark theme */
+.dark body {
+    background: #1a1a1a;
+    color: #e6e6e6;
+}
+
+.dark #app {
+    background: #1a1a1a;
+}
+
+.dark .top-bar {
+    background: #2a2a2a;
+}
+
+.dark .card {
+    background: #2a2a2a;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+.dark button {
+    background: #2a2a2a;
+    color: #e6e6e6;
+}
+
+.dark .empty-text {
+    color: #999;
+}
+
+.dark .liked-panel,
+.dark .who-liked-panel,
+.dark .create-panel {
+    background: #1a1a1a;
+}
+
+.dark .liked-item,
+.dark .create-card {
+    background: #2a2a2a;
+}
+
+.dark .create-body input,
+.dark .create-body textarea {
+    background: #333;
+    color: #e6e6e6;
+    border-color: #444;
+}
+
 #app {
     display: flex;
     flex-direction: column;
