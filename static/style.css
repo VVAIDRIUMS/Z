@@ -200,7 +200,7 @@ button {
     justify-content: center;
         gap: 20px;
         pointer-events: none;
-
+}
 .action-buttons button {
     pointer-events: auto;
 }
@@ -231,4 +231,4 @@ button {
 .like-btn {
     color: #2ecc71;
     font-size: 32px;
-} }
+}
