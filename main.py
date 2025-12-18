@@ -15,8 +15,6 @@ app.include_router(roles_router)
 app.include_router(favorites_router)
 app.include_router(likes_router)
 app.include_router(profiles_router)
-app.include_router(roles_router)
-app.include_router(user_filters_router)
 app.include_router(users_router)
 
 if __name__ == "__main__":
