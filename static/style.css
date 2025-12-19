@@ -201,12 +201,9 @@ button {
         z-index: 100;
 
     .bottom-btn {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
+    height: 90px;            border-radius: 50%;
             border: none;
-            font-size: 32px;
-            cursor: pointer;
+    font-size: 42px;            cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
