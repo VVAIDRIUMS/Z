@@ -3,6 +3,7 @@ let profiles = [];
 let currentIndex = 0;
 let myProfile = null;
 let darkMode = localStorage.getItem('darkMode') === '1';
+let likedProfiles = JSON.parse(localStorage.getItem('likedProfiles') || '[]');
 
 // DOM elements
 const cardStack = document.querySelector('.card-stack');
@@ -161,11 +162,9 @@ const skipBtn = document.getElementById('skip-btn');
 const savedBtn = document.getElementById('saved-btn');
 const likedPanel = document.querySelector('.liked-panel');
 const likedList = document.querySelector('.liked-list');
-let likedProfiles = JSON.parse(localStorage.getItem('likedProfiles') || '[]');
 
 // Кнопка лайка
 likeBtn?.addEventListener('click', () => {
-    if (currentIndex < profiles.length) {
         const profile = profiles[currentIndex];
         likedProfiles.push(profile);
         localStorage.setItem('likedProfiles', JSON.stringify(likedProfiles));
