@@ -174,6 +174,7 @@ savedBtn?.addEventListener('click', () => {
     likedPanel?.setAttribute('aria-hidden', 'false');
 });
 
+
 function renderLikedList() {
     if (!likedList) return;
     likedList.innerHTML = '';
