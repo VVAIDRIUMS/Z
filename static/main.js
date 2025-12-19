@@ -64,28 +64,7 @@ function renderCard() {
                 <div>${profile.city || ''}</div>
                 <div>${profile.bio || ''}</div>
             </div>
-                            <div class="card-actions">
-                                                <button class="card-btn card-btn-dislike" aria-label="Пропустить">✕</button>
-                                                                    <button class="card-btn card-btn-like" aria-label="Нравится">❤</button>
-                                                                                    </div>
-        </div>
-    `;
-    cardStack.appendChild(card)
-        
-            // Добавляем обработчики событий для кнопок
-        const likeButton = card.querySelector('.card-btn-like');
-        const dislikeButton = card.querySelector('.card-btn-dislike');
-    
-        likeButton?.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    handleLike();
-                });
-    
-        dislikeButton?.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    handleDislike();
-                });;
-}
+            
 
 // Next card
 function nextCard() {
