@@ -64,9 +64,27 @@ function renderCard() {
                 <div>${profile.city || ''}</div>
                 <div>${profile.bio || ''}</div>
             </div>
+                            <div class="card-actions">
+                                                <button class="card-btn card-btn-dislike" aria-label="Пропустить">✕</button>
+                                                                    <button class="card-btn card-btn-like" aria-label="Нравится">❤</button>
+                                                                                    </div>
         </div>
     `;
-    cardStack.appendChild(card);
+    cardStack.appendChild(card)
+        
+            // Добавляем обработчики событий для кнопок
+        const likeButton = card.querySelector('.card-btn-like');
+        const dislikeButton = card.querySelector('.card-btn-dislike');
+    
+        likeButton?.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    handleLike();
+                });
+    
+        dislikeButton?.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    handleDislike();
+                });;
 }
 
 // Next card
@@ -74,6 +92,21 @@ function nextCard() {
     currentIndex++;
     renderCard();
 }
+
+// Функция лайка
+function handleLike() {
+        if (currentIndex < profiles.length) {
+                    const profile = profiles[currentIndex];
+                    likedProfiles.push(profile);
+                    localStorage.setItem('likedProfiles', JSON.stringify(likedProfiles));
+                    nextCard();
+                }
+    }
+
+// Функция дизлайка
+function handleDislike() {
+        nextCard();
+    }
 
 // Swipe handlers
 let startX = 0;
@@ -90,11 +123,8 @@ if (cardStack) {
         }
     });
     
-    cardStack.addEventListener('click', () => {
-        nextCard();
-    });
-}
-
+    //     // }
+    // 
 // Create profile panel
 if (createBtn) {
     createBtn.addEventListener('click', () => {
