@@ -218,3 +218,15 @@ createPreview?.addEventListener('click', () => {
     `;
     createPreviewArea.setAttribute('aria-hidden', 'false');
 });
+
+// Обработчики для кнопок нижней панели
+const bottomLikeBtn = document.getElementById('bottom-like-btn');
+const bottomDislikeBtn = document.getElementById('bottom-dislike-btn');
+
+bottomLikeBtn?.addEventListener('click', () => {
+    handleLike();
+    });
+
+    bottomDislikeBtn?.addEventListener('click', () => {
+        handleDislike();
+        });
