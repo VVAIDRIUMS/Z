@@ -204,6 +204,12 @@ savedBtn?.addEventListener('click', () => {
     likedPanel?.setAttribute('aria-hidden', 'false');
 });
 
+
+    // Кнопка закрытия панели понравившихся
+    const backBtn = document.querySelector('.back-btn');
+    backBtn?.addEventListener('click', () => {
+            likedPanel?.setAttribute('aria-hidden', 'true');
+        });
 function renderLikedList() {
     if (!likedList) return;
     likedList.innerHTML = '';
