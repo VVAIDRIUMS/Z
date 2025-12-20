@@ -97,12 +97,8 @@ class AuthService:
         hashed_password = self.get_password_hash(user_data.password)
         
         # Создаем пользователя
-        user = await self.user_repository.create({
-            "email": user_data.email,
-            "hashed_password": hashed_password,
-            "is_active": user_data.is_active,
-            "role_id": user_data.role_id
-        })
+        
+        user = await self.user_repository.create(user_data)
         
         return UserResponse(
             id=user.id,

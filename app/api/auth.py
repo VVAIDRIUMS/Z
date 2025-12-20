@@ -34,6 +34,7 @@ async def register_user(
     """
     service = AuthService(db)
     try:
+        print(f"{user_data=}")
         return await service.register_user(user_data)
     except UserAlreadyExistsException as e:
         raise HTTPException(

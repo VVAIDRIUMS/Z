@@ -9,10 +9,10 @@ class UserRepository:
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def create(self, user_data: UserCreate, hashed_password: str) -> UserModel:
+    async def create(self, user_data: UserCreate) -> UserModel:
         user = UserModel(
             email=user_data.email,
-            hashed_password=hashed_password,
+            hashed_password=user_data.password,
             is_active=user_data.is_active,
             role_id=user_data.role_id
         )
