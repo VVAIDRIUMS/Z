@@ -51,19 +51,22 @@
     .dark .liked-panel,
     .dark .who-liked-panel,
     .dark .create-panel,
-    .dark .profile-view-panel {
+    .dark .profile-view-panel,
+    .dark .auth-panel {
       background: #1a1a1a;
     }
 
     .dark .liked-item,
     .dark .create-card,
-    .dark .profile-view-card {
+    .dark .profile-view-card,
+    .dark .auth-card {
       background: #2a2a2a;
     }
 
     .dark .create-body input,
     .dark .create-body textarea,
-    .dark .profile-view-info div {
+    .dark .profile-view-info div,
+    .dark .auth-body input {
       background: #333;
       color: #e6e6e6;
       border-color: #444;
@@ -128,7 +131,7 @@
       height: 36px;
     }
 
-    .theme-toggle, .saved-btn, .create-btn, .profile-btn {
+    .theme-toggle, .saved-btn, .create-btn, .profile-btn, .auth-btn {
       width: 40px;
       height: 40px;
       display: flex;
@@ -136,6 +139,14 @@
       justify-content: center;
       border-radius: 10px;
       font-size: 18px;
+    }
+
+    .auth-btn {
+      background: #007aff;
+      color: white;
+      font-size: 14px;
+      width: auto;
+      padding: 0 12px;
     }
 
     .profile-dot {
@@ -271,6 +282,22 @@
       border: 2px solid #34c759;
     }
 
+    .refresh-btn {
+      background: #fff;
+      color: #007aff;
+      border: 2px solid #007aff;
+      margin-top: 15px;
+      width: auto;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 16px;
+      display: none;
+    }
+
+    .refresh-btn.show {
+      display: block;
+    }
+
     button {
       cursor: pointer;
       border: none;
@@ -286,6 +313,7 @@
 
     .empty-text {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100%;
@@ -293,9 +321,10 @@
       color: #666;
       text-align: center;
       padding: 20px;
+      gap: 15px;
     }
 
-    .liked-panel, .who-liked-panel, .create-panel, .profile-view-panel {
+    .liked-panel, .who-liked-panel, .create-panel, .profile-view-panel, .auth-panel {
       position: fixed;
       inset: 0;
       background: #f5f2ec;
@@ -308,7 +337,8 @@
     .liked-panel[aria-hidden="false"],
     .who-liked-panel[aria-hidden="false"],
     .create-panel[aria-hidden="false"],
-    .profile-view-panel[aria-hidden="false"] {
+    .profile-view-panel[aria-hidden="false"],
+    .auth-panel[aria-hidden="false"] {
       display: flex;
     }
 
@@ -344,7 +374,6 @@
 
     .liked-item, .who-liked-item {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       padding: 12px;
       background: #fff;
@@ -352,6 +381,11 @@
       margin-bottom: 8px;
       cursor: pointer;
       transition: transform 0.2s;
+      gap: 12px;
+    }
+
+    .who-liked-item {
+      padding: 8px 12px;
     }
 
     .liked-item:hover, .who-liked-item:hover {
@@ -359,19 +393,35 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
+    .profile-photo-small {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+    }
+
     .profile-info {
       flex: 1;
+      min-width: 0;
     }
 
     .profile-name-age {
       font-weight: 600;
       font-size: 16px;
       margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .profile-city {
       font-size: 14px;
       color: #666;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .dark .profile-city {
@@ -381,6 +431,7 @@
     .item-actions {
       display: flex;
       gap: 8px;
+      flex-shrink: 0;
     }
 
     .item-action-btn {
@@ -411,7 +462,7 @@
       color: white;
     }
 
-    .create-card, .profile-view-card {
+    .create-card, .profile-view-card, .auth-card {
       background: #fff;
       border-radius: 14px;
       padding: 18px;
@@ -422,21 +473,22 @@
       overflow-y: auto;
     }
 
-    .create-header, .profile-view-header {
+    .create-header, .profile-view-header, .auth-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 16px;
     }
 
-    .create-close, .profile-view-close {
+    .create-close, .profile-view-close, .auth-close {
       width: 32px;
       height: 32px;
       font-size: 18px;
     }
 
     .create-body input,
-    .create-body textarea {
+    .create-body textarea,
+    .auth-body input {
       width: 100%;
       padding: 10px;
       margin: 6px 0;
@@ -450,8 +502,9 @@
       resize: vertical;
     }
 
-    .create-actions {
+    .create-actions, .auth-actions {
       display: flex;
+      flex-direction: column;
       gap: 10px;
       margin-top: 16px;
     }
@@ -462,11 +515,64 @@
       background: #007aff;
       color: white;
       font-weight: 600;
+      width: 100%;
     }
 
     .reg-btn.subtle {
       background: #e7e2d8;
       color: #1d1b16;
+    }
+
+    .auth-tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #e7e2d8;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      font-weight: 500;
+    }
+
+    .auth-tab.active {
+      border-bottom-color: #007aff;
+      font-weight: 600;
+    }
+
+    .auth-message {
+      padding: 10px;
+      border-radius: 8px;
+      margin: 10px 0;
+      text-align: center;
+      display: none;
+    }
+
+    .auth-message.success {
+      background: #d4edda;
+      color: #155724;
+      display: block;
+    }
+
+    .auth-message.error {
+      background: #f8d7da;
+      color: #721c24;
+      display: block;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .user-email {
+      font-weight: 500;
     }
 
     .create-preview-area {
@@ -570,13 +676,23 @@
         font-size: 22px;
       }
       
-      .profile-view-card {
+      .profile-view-card, .auth-card {
         padding: 14px;
         max-width: 95%;
       }
       
       .profile-view-photo {
         height: 250px;
+      }
+      
+      .profile-photo-small {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .liked-item, .who-liked-item {
+        padding: 10px;
+        gap: 10px;
       }
     }
 
@@ -628,6 +744,19 @@
       .profile-view-photo {
         height: 200px;
       }
+      
+      .profile-photo-small {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .profile-name-age {
+        font-size: 14px;
+      }
+      
+      .profile-city {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
@@ -638,7 +767,8 @@
         <img id="logo-img" class="logo-img" src="" alt="Логотип" />
         <div class="logo">Взгляд</div>
       </div>
-      <!-- City filter: choose which city pool will show up -->
+      
+      <!-- City filter -->
       <select id="city-filter" class="city-filter" aria-label="Фильтр города">
         <option value="all">Все города</option>
         <option value="Москва">Москва</option>
@@ -656,19 +786,19 @@
         <option value="Челябинск">Челябинск</option>
         <option value="Пермь">Пермь</option>
       </select>
-      <!-- Gender filter: choose which gender pool will show up -->
+      
+      <!-- Gender filter -->
       <select id="gender-filter" class="city-filter" aria-label="Фильтр по полу">
         <option value="all">Любой пол</option>
         <option value="male">Мужчина</option>
         <option value="female">Женщина</option>
       </select>
+      
       <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">🌓</button>
       <button id="saved-btn" class="saved-btn header-saved" aria-label="Понравившиеся">❤</button>
       <button id="who-liked-btn" class="saved-btn header-saved" aria-label="Кто лайкнул меня">👀</button>
       <button id="create-btn" class="create-btn" aria-label="Создать анкету">＋</button>
-      <button class="profile-btn" aria-label="Профиль">
-        <span class="profile-dot"></span>
-      </button>
+      <button id="auth-btn" class="auth-btn" aria-label="Вход/Регистрация">👤</button>
     </header>
 
     <div class="main-content">
@@ -681,6 +811,7 @@
       <div class="action-buttons">
         <button class="skip-btn" id="skip-btn" aria-label="Пропустить">✕</button>
         <button class="like-btn" id="like-btn" aria-label="Лайк">❤</button>
+        <button class="refresh-btn" id="refresh-btn" aria-label="Обновить карточки">🔄 Обновить карточки</button>
       </div>
     </div>
 
@@ -768,6 +899,53 @@
         </div>
       </div>
     </section>
+
+    <!-- Auth panel -->
+    <section class="auth-panel" aria-hidden="true">
+      <div class="auth-card">
+        <header class="auth-header">
+          <h3>Вход и регистрация</h3>
+          <button class="auth-close" aria-label="Закрыть">✕</button>
+        </header>
+        <div class="auth-tabs">
+          <div class="auth-tab active" id="login-tab">Вход</div>
+          <div class="auth-tab" id="register-tab">Регистрация</div>
+        </div>
+        <div class="auth-body">
+          <div id="auth-message" class="auth-message"></div>
+          
+          <!-- Login form -->
+          <div id="login-form">
+            <input id="login-email" type="email" placeholder="Email" />
+            <input id="login-password" type="password" placeholder="Пароль" />
+            <div class="auth-actions">
+              <button id="login-btn" class="reg-btn">Войти</button>
+            </div>
+          </div>
+          
+          <!-- Register form -->
+          <div id="register-form" style="display: none;">
+            <input id="register-email" type="email" placeholder="Email" />
+            <input id="register-password" type="password" placeholder="Пароль" />
+            <input id="register-confirm-password" type="password" placeholder="Подтвердите пароль" />
+            <div class="auth-actions">
+              <button id="register-btn" class="reg-btn">Зарегистрироваться</button>
+            </div>
+          </div>
+          
+          <!-- Logout form -->
+          <div id="logout-form" style="display: none;">
+            <div class="user-info">
+              <span>Вы вошли как:</span>
+              <span class="user-email" id="current-user-email"></span>
+            </div>
+            <div class="auth-actions">
+              <button id="logout-btn" class="reg-btn" style="background: #ff3b30;">Выйти</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <script>
@@ -776,11 +954,11 @@
     let currentIndex = 0;
     let myProfile = null;
     let darkMode = localStorage.getItem('darkMode') === '1';
-    let likedProfiles = JSON.parse(localStorage.getItem('likedProfiles') || '[]');
-    let whoLikedMeProfiles = JSON.parse(localStorage.getItem('whoLikedMe') || '[]');
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+    let viewedProfiles = JSON.parse(localStorage.getItem(`viewedProfiles_${currentUser?.email}`) || '[]');
     let currentViewingProfile = null;
     let isViewingFromLikedList = false;
-
+    
     // DOM elements
     const cardStack = document.querySelector('.card-stack');
     const themeToggle = document.getElementById('theme-toggle');
@@ -788,7 +966,7 @@
     const createPanel = document.querySelector('.create-panel');
     const createClose = document.querySelector('.create-close');
     const createSave = document.getElementById('create-save');
-    const profileBtn = document.querySelector('.profile-btn');
+    const authBtn = document.getElementById('auth-btn');
     const likedPanel = document.querySelector('.liked-panel');
     const likedList = document.querySelector('.liked-list');
     const whoLikedPanel = document.querySelector('.who-liked-panel');
@@ -798,31 +976,13 @@
     const genderFilter = document.getElementById('gender-filter');
     const likeBtn = document.getElementById('like-btn');
     const skipBtn = document.getElementById('skip-btn');
+    const refreshBtn = document.getElementById('refresh-btn');
     const profileViewPanel = document.querySelector('.profile-view-panel');
     const profileViewClose = document.querySelector('.profile-view-close');
     const profileViewLikeBtn = document.getElementById('profile-view-like-btn');
     const profileViewUnlikeBtn = document.getElementById('profile-view-unlike-btn');
-
-    // Apply theme on load
-    function applyTheme() {
-      if (darkMode) {
-        document.documentElement.classList.add('dark');
-        if (themeToggle) themeToggle.textContent = '☀️';
-      } else {
-        document.documentElement.classList.remove('dark');
-        if (themeToggle) themeToggle.textContent = '🌙';
-      }
-    }
-    applyTheme();
-
-    // Theme toggle
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        darkMode = !darkMode;
-        localStorage.setItem('darkMode', darkMode ? '1' : '0');
-        applyTheme();
-      });
-    }
+    const authPanel = document.querySelector('.auth-panel');
+    const authClose = document.querySelector('.auth-close');
 
     // Sample profiles (using your data)
     const sampleProfiles = [
@@ -847,6 +1007,12 @@
     function loadProfiles() {
       // Start with all profiles
       profiles = [...sampleProfiles];
+      
+      // Filter out already viewed profiles for current user
+      if (currentUser) {
+        viewedProfiles = JSON.parse(localStorage.getItem(`viewedProfiles_${currentUser.email}`) || '[]');
+        profiles = profiles.filter(profile => !viewedProfiles.includes(profile.id));
+      }
       
       // Apply city filter
       const selectedCity = cityFilter.value;
@@ -878,9 +1044,12 @@
       cardStack.innerHTML = '';
       
       if (currentIndex >= profiles.length) {
-        cardStack.innerHTML = '<div class="empty-text">Нет доступных профилей</div>';
+        cardStack.innerHTML = '<div class="empty-text">Нет доступных профилей<br><br>Используйте кнопку "Обновить карточки" ниже для сброса</div>';
+        refreshBtn.classList.add('show');
         return;
       }
+      
+      refreshBtn.classList.remove('show');
       
       const profile = profiles[currentIndex];
       const card = document.createElement('div');
@@ -900,11 +1069,28 @@
 
     // Next card
     function nextCard() {
-      currentIndex++;
-      if (currentIndex >= profiles.length) {
-        currentIndex = 0; // Restart from beginning
+      if (currentIndex < profiles.length - 1) {
+        currentIndex++;
+        renderCard();
+      } else {
+        // Show refresh button when no more cards
+        cardStack.innerHTML = '<div class="empty-text">Нет доступных профилей<br><br>Используйте кнопку "Обновить карточки" ниже для сброса</div>';
+        refreshBtn.classList.add('show');
       }
-      renderCard();
+    }
+
+    // Refresh profiles
+    function refreshProfiles() {
+      if (currentUser) {
+        // Clear viewed profiles for current user
+        localStorage.removeItem(`viewedProfiles_${currentUser.email}`);
+        viewedProfiles = [];
+      }
+      
+      // Reset to beginning and reload
+      currentIndex = 0;
+      loadProfiles();
+      showNotification('Карточки обновлены!');
     }
 
     // Like current profile
@@ -912,20 +1098,41 @@
       if (currentIndex < profiles.length) {
         const profile = profiles[currentIndex];
         likeProfile(profile);
+        
+        // Mark as viewed
+        if (currentUser) {
+          viewedProfiles.push(profile.id);
+          localStorage.setItem(`viewedProfiles_${currentUser.email}`, JSON.stringify(viewedProfiles));
+        }
+        
+        nextCard();
       }
     }
 
     // Like a specific profile
     function likeProfile(profile) {
+      if (!currentUser) {
+        showAuthMessage('Для лайков нужно войти в аккаунт', 'error');
+        authPanel.setAttribute('aria-hidden', 'false');
+        return false;
+      }
+      
+      const userLikes = getUserLikes();
+      
       // Check if already liked
-      if (!likedProfiles.some(p => p.id === profile.id)) {
-        likedProfiles.push(profile);
-        localStorage.setItem('likedProfiles', JSON.stringify(likedProfiles));
+      if (!userLikes.some(p => p.id === profile.id)) {
+        userLikes.push(profile);
+        saveUserLikes(userLikes);
         
         // Add to "who liked me" for that profile (simulated)
-        if (!whoLikedMeProfiles.some(p => p.id === profile.id)) {
-          whoLikedMeProfiles.push(profile);
-          localStorage.setItem('whoLikedMe', JSON.stringify(whoLikedMeProfiles));
+        const profileLikedBy = getWhoLikedMe(profile.id);
+        if (!profileLikedBy.some(p => p.email === currentUser.email)) {
+          profileLikedBy.push({
+            email: currentUser.email,
+            name: currentUser.email.split('@')[0],
+            timestamp: Date.now()
+          });
+          saveWhoLikedMe(profile.id, profileLikedBy);
         }
         
         // Add animation effect
@@ -949,10 +1156,13 @@
 
     // Unlike a profile
     function unlikeProfile(profile) {
-      const index = likedProfiles.findIndex(p => p.id === profile.id);
+      if (!currentUser) return false;
+      
+      const userLikes = getUserLikes();
+      const index = userLikes.findIndex(p => p.id === profile.id);
       if (index !== -1) {
-        likedProfiles.splice(index, 1);
-        localStorage.setItem('likedProfiles', JSON.stringify(likedProfiles));
+        userLikes.splice(index, 1);
+        saveUserLikes(userLikes);
         showNotification(`Лайк для ${profile.name} убран`);
         return true;
       }
@@ -963,6 +1173,12 @@
     function skipCurrentProfile() {
       if (currentIndex < profiles.length) {
         const profile = profiles[currentIndex];
+        
+        // Mark as viewed
+        if (currentUser) {
+          viewedProfiles.push(profile.id);
+          localStorage.setItem(`viewedProfiles_${currentUser.email}`, JSON.stringify(viewedProfiles));
+        }
         
         // Add animation effect
         if (skipBtn) {
@@ -980,6 +1196,60 @@
         showNotification(`Вы пропустили ${profile.name}`);
         nextCard();
       }
+    }
+
+    // Get user's liked profiles
+    function getUserLikes() {
+      if (!currentUser) return [];
+      return JSON.parse(localStorage.getItem(`likes_${currentUser.email}`) || '[]');
+    }
+
+    // Save user's liked profiles
+    function saveUserLikes(likes) {
+      if (currentUser) {
+        localStorage.setItem(`likes_${currentUser.email}`, JSON.stringify(likes));
+      }
+    }
+
+    // Get who liked a profile
+    function getWhoLikedMe(profileId) {
+      return JSON.parse(localStorage.getItem(`likedBy_${profileId}`) || '[]');
+    }
+
+    // Save who liked a profile
+    function saveWhoLikedMe(profileId, likedBy) {
+      localStorage.setItem(`likedBy_${profileId}`, JSON.stringify(likedBy));
+    }
+
+    // Get who liked current user
+    function getWhoLikedCurrentUser() {
+      if (!currentUser || !myProfile) return [];
+      
+      const likedBy = getWhoLikedMe(myProfile.id);
+      // Convert likedBy data to profile format
+      return likedBy.map(like => {
+        // Try to find matching profile
+        const profile = sampleProfiles.find(p => 
+          p.name.toLowerCase().includes(like.name.toLowerCase()) || 
+          like.name.toLowerCase().includes(p.name.toLowerCase())
+        );
+        
+        if (profile) {
+          return profile;
+        }
+        
+        // Fallback to basic profile
+        return {
+          id: `user_${like.email}`,
+          name: like.name,
+          age: Math.floor(Math.random() * 10) + 25,
+          city: sampleProfiles[Math.floor(Math.random() * sampleProfiles.length)].city,
+          bio: "Пользователь сайта",
+          photo: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80",
+          contact: like.email,
+          tags: "пользователь"
+        };
+      });
     }
 
     // Show notification
@@ -1059,6 +1329,10 @@
     if (skipBtn) {
       skipBtn.addEventListener('click', skipCurrentProfile);
     }
+    
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', refreshProfiles);
+    }
 
     // Create profile panel
     if (createBtn) {
@@ -1087,6 +1361,155 @@
         profileViewPanel.setAttribute('aria-hidden', 'true');
         currentViewingProfile = null;
       });
+    }
+
+    // Auth panel
+    if (authBtn) {
+      authBtn.addEventListener('click', () => {
+        updateAuthUI();
+        authPanel.setAttribute('aria-hidden', 'false');
+      });
+    }
+    
+    if (authClose) {
+      authClose.addEventListener('click', () => {
+        authPanel.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    // Auth tabs
+    document.getElementById('login-tab').addEventListener('click', () => {
+      document.getElementById('login-tab').classList.add('active');
+      document.getElementById('register-tab').classList.remove('active');
+      document.getElementById('login-form').style.display = 'block';
+      document.getElementById('register-form').style.display = 'none';
+    });
+    
+    document.getElementById('register-tab').addEventListener('click', () => {
+      document.getElementById('register-tab').classList.add('active');
+      document.getElementById('login-tab').classList.remove('active');
+      document.getElementById('register-form').style.display = 'block';
+      document.getElementById('login-form').style.display = 'none';
+    });
+
+    // Login function
+    document.getElementById('login-btn').addEventListener('click', () => {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      
+      if (!email || !password) {
+        showAuthMessage('Заполните все поля', 'error');
+        return;
+      }
+      
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => u.email === email && u.password === password);
+      
+      if (user) {
+        currentUser = { email: user.email };
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        updateAuthUI();
+        showAuthMessage('Вход выполнен успешно!', 'success');
+        setTimeout(() => {
+          authPanel.setAttribute('aria-hidden', 'true');
+          loadProfiles();
+        }, 1000);
+      } else {
+        showAuthMessage('Неверный email или пароль', 'error');
+      }
+    });
+
+    // Register function
+    document.getElementById('register-btn').addEventListener('click', () => {
+      const email = document.getElementById('register-email').value;
+      const password = document.getElementById('register-password').value;
+      const confirmPassword = document.getElementById('register-confirm-password').value;
+      
+      if (!email || !password || !confirmPassword) {
+        showAuthMessage('Заполните все поля', 'error');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showAuthMessage('Пароли не совпадают', 'error');
+        return;
+      }
+      
+      if (password.length < 6) {
+        showAuthMessage('Пароль должен быть не менее 6 символов', 'error');
+        return;
+      }
+      
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      
+      if (users.some(u => u.email === email)) {
+        showAuthMessage('Пользователь с таким email уже существует', 'error');
+        return;
+      }
+      
+      users.push({ email, password });
+      localStorage.setItem('users', JSON.stringify(users));
+      
+      currentUser = { email };
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      updateAuthUI();
+      showAuthMessage('Регистрация выполнена успешно!', 'success');
+      setTimeout(() => {
+        authPanel.setAttribute('aria-hidden', 'true');
+        loadProfiles();
+      }, 1000);
+    });
+
+    // Logout function
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      currentUser = null;
+      localStorage.removeItem('currentUser');
+      updateAuthUI();
+      showAuthMessage('Вы вышли из аккаунта', 'success');
+      setTimeout(() => {
+        authPanel.setAttribute('aria-hidden', 'true');
+        loadProfiles();
+      }, 1000);
+    });
+
+    // Update auth UI
+    function updateAuthUI() {
+      const authMessage = document.getElementById('auth-message');
+      authMessage.className = 'auth-message';
+      authMessage.textContent = '';
+      
+      if (currentUser) {
+        document.getElementById('current-user-email').textContent = currentUser.email;
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('logout-form').style.display = 'block';
+        document.getElementById('login-tab').style.display = 'none';
+        document.getElementById('register-tab').style.display = 'none';
+        authBtn.textContent = '👤 ' + currentUser.email.split('@')[0];
+      } else {
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('register-form').style.display = 'none';
+        document.getElementById('logout-form').style.display = 'none';
+        document.getElementById('login-tab').style.display = 'block';
+        document.getElementById('register-tab').style.display = 'block';
+        document.getElementById('login-tab').classList.add('active');
+        document.getElementById('register-tab').classList.remove('active');
+        authBtn.textContent = '👤';
+        
+        // Clear form fields
+        document.getElementById('login-email').value = '';
+        document.getElementById('login-password').value = '';
+        document.getElementById('register-email').value = '';
+        document.getElementById('register-password').value = '';
+        document.getElementById('register-confirm-password').value = '';
+      }
+    }
+
+    // Show auth message
+    function showAuthMessage(message, type) {
+      const authMessage = document.getElementById('auth-message');
+      authMessage.textContent = message;
+      authMessage.className = `auth-message ${type}`;
     }
 
     // Save profile
@@ -1136,29 +1559,14 @@
       });
     }
 
-    // View my profile
-    if (profileBtn) {
-      profileBtn.addEventListener('click', () => {
-        const saved = localStorage.getItem('myProfile');
-        if (saved) {
-          myProfile = JSON.parse(saved);
-          const msg = `Ваш профиль:\nИмя: ${myProfile.name}\nВозраст: ${myProfile.age}\nГород: ${myProfile.city || 'не указан'}\nКонтакт: ${myProfile.contact || 'не указан'}\nО себе: ${myProfile.bio || 'не указано'}\nТеги: ${myProfile.tags || 'не указаны'}`;
-          if (confirm(msg + '\n\nУдалить профиль?')) {
-            localStorage.removeItem('myProfile');
-            myProfile = null;
-            // Remove from profiles array
-            profiles = profiles.filter(p => !p.id || p.id !== myProfile?.id);
-            showNotification('Профиль удален');
-          }
-        } else {
-          alert('У вас нет профиля. Создайте его!');
-        }
-      });
-    }
-
     // Кнопка "Понравившиеся"
     const savedBtn = document.getElementById('saved-btn');
     savedBtn?.addEventListener('click', () => {
+      if (!currentUser) {
+        showAuthMessage('Для просмотра понравившихся нужно войти в аккаунт', 'error');
+        authPanel.setAttribute('aria-hidden', 'false');
+        return;
+      }
       renderLikedList();
       likedPanel?.setAttribute('aria-hidden', 'false');
     });
@@ -1166,28 +1574,31 @@
     // Кнопка "Кто лайкнул меня"
     if (whoLikedBtn) {
       whoLikedBtn.addEventListener('click', () => {
+        if (!currentUser) {
+          showAuthMessage('Для просмотра лайков нужно войти в аккаунт', 'error');
+          authPanel.setAttribute('aria-hidden', 'false');
+          return;
+        }
         renderWhoLikedList();
         whoLikedPanel?.setAttribute('aria-hidden', 'false');
       });
     }
 
-    // Simulate likes from others (sample data)
-    function getWhoLikedMe() {
-      // Return real data from storage
-      return whoLikedMeProfiles;
-    }
-
     function renderLikedList() {
       if (!likedList) return;
+      const userLikes = getUserLikes();
       likedList.innerHTML = '';
-      if (likedProfiles.length === 0) {
+      
+      if (userLikes.length === 0) {
         likedList.innerHTML = '<div class="empty-text">Нет понравившихся профилей</div>';
         return;
       }
-      likedProfiles.forEach(profile => {
+      
+      userLikes.forEach(profile => {
         const item = document.createElement('div');
         item.className = 'liked-item';
         item.innerHTML = `
+          <div class="profile-photo-small" style="background-image: url(${profile.photo || 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80'})"></div>
           <div class="profile-info">
             <div class="profile-name-age">${profile.name}, ${profile.age}</div>
             <div class="profile-city">${profile.city || 'Город не указан'}</div>
@@ -1205,7 +1616,7 @@
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const profileId = parseInt(btn.getAttribute('data-id'));
-          const profile = likedProfiles.find(p => p.id === profileId);
+          const profile = getUserLikes().find(p => p.id === profileId);
           if (profile) {
             isViewingFromLikedList = true;
             viewProfile(profile);
@@ -1217,7 +1628,7 @@
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const profileId = parseInt(btn.getAttribute('data-id'));
-          const profile = likedProfiles.find(p => p.id === profileId);
+          const profile = getUserLikes().find(p => p.id === profileId);
           if (profile) {
             unlikeProfile(profile);
             renderLikedList();
@@ -1230,7 +1641,7 @@
         item.addEventListener('click', (e) => {
           if (!e.target.closest('.item-actions')) {
             const profileId = parseInt(item.querySelector('.view-btn')?.getAttribute('data-id'));
-            const profile = likedProfiles.find(p => p.id === profileId);
+            const profile = getUserLikes().find(p => p.id === profileId);
             if (profile) {
               isViewingFromLikedList = true;
               viewProfile(profile);
@@ -1242,17 +1653,22 @@
 
     function renderWhoLikedList() {
       if (!whoLikedList) return;
-      const whoLiked = getWhoLikedMe();
+      const whoLiked = getWhoLikedCurrentUser();
+      const userLikes = getUserLikes();
+      
       whoLikedList.innerHTML = '';
+      
       if (whoLiked.length === 0) {
         whoLikedList.innerHTML = '<div class="empty-text">Пока никто не лайкнул ваш профиль</div>';
         return;
       }
+      
       whoLiked.forEach(profile => {
-        const isLikedBack = likedProfiles.some(p => p.id === profile.id);
+        const isLikedBack = userLikes.some(p => p.id === profile.id);
         const item = document.createElement('div');
         item.className = 'who-liked-item';
         item.innerHTML = `
+          <div class="profile-photo-small" style="background-image: url(${profile.photo || 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80'})"></div>
           <div class="profile-info">
             <div class="profile-name-age">${profile.name}, ${profile.age}</div>
             <div class="profile-city">${profile.city}</div>
@@ -1273,7 +1689,7 @@
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const profileId = parseInt(btn.getAttribute('data-id'));
-          const profile = whoLikedMeProfiles.find(p => p.id === profileId);
+          const profile = getWhoLikedCurrentUser().find(p => p.id === profileId);
           if (profile) {
             isViewingFromLikedList = false;
             viewProfile(profile);
@@ -1285,7 +1701,7 @@
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const profileId = parseInt(btn.getAttribute('data-id'));
-          const profile = whoLikedMeProfiles.find(p => p.id === profileId);
+          const profile = getWhoLikedCurrentUser().find(p => p.id === profileId);
           if (profile) {
             likeProfile(profile);
             renderWhoLikedList();
@@ -1297,7 +1713,7 @@
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
           const profileId = parseInt(btn.getAttribute('data-id'));
-          const profile = whoLikedMeProfiles.find(p => p.id === profileId);
+          const profile = getWhoLikedCurrentUser().find(p => p.id === profileId);
           if (profile) {
             unlikeProfile(profile);
             renderWhoLikedList();
@@ -1310,7 +1726,7 @@
         item.addEventListener('click', (e) => {
           if (!e.target.closest('.item-actions')) {
             const profileId = parseInt(item.querySelector('.view-btn')?.getAttribute('data-id'));
-            const profile = whoLikedMeProfiles.find(p => p.id === profileId);
+            const profile = getWhoLikedCurrentUser().find(p => p.id === profileId);
             if (profile) {
               isViewingFromLikedList = false;
               viewProfile(profile);
@@ -1334,7 +1750,7 @@
       document.getElementById('profile-view-tags').textContent = profile.tags || 'Не указаны';
       
       // Show/hide appropriate buttons
-      const isLiked = likedProfiles.some(p => p.id === profile.id);
+      const isLiked = getUserLikes().some(p => p.id === profile.id);
       if (isLiked) {
         profileViewLikeBtn.style.display = 'none';
         profileViewUnlikeBtn.style.display = 'block';
@@ -1439,13 +1855,31 @@
       genderFilter.addEventListener('change', loadProfiles);
     }
 
+    // Apply theme on load
+    function applyTheme() {
+      if (darkMode) {
+        document.documentElement.classList.add('dark');
+        if (themeToggle) themeToggle.textContent = '☀️';
+      } else {
+        document.documentElement.classList.remove('dark');
+        if (themeToggle) themeToggle.textContent = '🌙';
+      }
+    }
+    applyTheme();
+
+    // Theme toggle
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        darkMode = !darkMode;
+        localStorage.setItem('darkMode', darkMode ? '1' : '0');
+        applyTheme();
+      });
+    }
+
     // Initialize app
     document.addEventListener('DOMContentLoaded', () => {
+      updateAuthUI();
       loadProfiles();
-      
-      // Load existing liked profiles
-      likedProfiles = JSON.parse(localStorage.getItem('likedProfiles') || '[]');
-      whoLikedMeProfiles = JSON.parse(localStorage.getItem('whoLikedMe') || '[]');
       
       // Load existing profile
       const savedProfile = localStorage.getItem('myProfile');
