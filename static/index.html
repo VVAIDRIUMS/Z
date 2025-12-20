@@ -86,6 +86,12 @@
       background: #3a3a3a;
     }
 
+    .dark .action-buttons .refresh-btn {
+      background: #3a3a3a;
+      color: #007aff;
+      border-color: #007aff;
+    }
+
     #app {
       display: flex;
       flex-direction: column;
@@ -236,8 +242,9 @@
 
     .action-buttons {
       display: flex;
-      justify-content: center;
-      gap: 30px;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
       padding: 20px 0;
       flex-shrink: 0;
       background: #f5f2ec;
@@ -247,14 +254,17 @@
       background: #1a1a1a;
     }
 
+    .action-main-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
     .action-buttons button {
-      width: 60px;
-      height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
       border: none;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -268,6 +278,12 @@
 
     .action-buttons button:active {
       transform: scale(0.95);
+    }
+
+    .skip-btn, .like-btn, .refresh-btn {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
     }
 
     .skip-btn {
@@ -286,16 +302,11 @@
       background: #fff;
       color: #007aff;
       border: 2px solid #007aff;
-      margin-top: 15px;
-      width: auto;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-size: 16px;
       display: none;
     }
 
     .refresh-btn.show {
-      display: block;
+      display: flex;
     }
 
     button {
@@ -665,12 +676,11 @@
         font-size: 22px;
       }
       
-      .action-buttons {
+      .action-main-buttons {
         gap: 20px;
-        padding: 15px 0;
       }
       
-      .action-buttons button {
+      .skip-btn, .like-btn, .refresh-btn {
         width: 55px;
         height: 55px;
         font-size: 22px;
@@ -720,12 +730,11 @@
         font-size: 20px;
       }
       
-      .action-buttons {
+      .action-main-buttons {
         gap: 15px;
-        padding: 12px 0;
       }
       
-      .action-buttons button {
+      .skip-btn, .like-btn, .refresh-btn {
         width: 50px;
         height: 50px;
         font-size: 20px;
@@ -809,9 +818,11 @@
       </div>
       
       <div class="action-buttons">
-        <button class="skip-btn" id="skip-btn" aria-label="Пропустить">✕</button>
-        <button class="like-btn" id="like-btn" aria-label="Лайк">❤</button>
-        <button class="refresh-btn" id="refresh-btn" aria-label="Обновить карточки">🔄 Обновить карточки</button>
+        <div class="action-main-buttons">
+          <button class="skip-btn" id="skip-btn" aria-label="Пропустить">✕</button>
+          <button class="like-btn" id="like-btn" aria-label="Лайк">❤</button>
+        </div>
+        <button class="refresh-btn" id="refresh-btn" aria-label="Обновить карточки">🔄</button>
       </div>
     </div>
 
@@ -1044,7 +1055,7 @@
       cardStack.innerHTML = '';
       
       if (currentIndex >= profiles.length) {
-        cardStack.innerHTML = '<div class="empty-text">Нет доступных профилей<br><br>Используйте кнопку "Обновить карточки" ниже для сброса</div>';
+        cardStack.innerHTML = '<div class="empty-text">Нет доступных профилей<br><br>Нажмите 🔄 чтобы обновить</div>';
         refreshBtn.classList.add('show');
         return;
       }
@@ -1074,7 +1085,7 @@
         renderCard();
       } else {
         // Show refresh button when no more cards
-        cardStack.innerHTML = '<div class="empty-text">Нет доступных профилей<br><br>Используйте кнопку "Обновить карточки" ниже для сброса</div>';
+        cardStack.innerHTML = '<div class="empty-text">Нет доступных профилей<br><br>Нажмите 🔄 чтобы обновить</div>';
         refreshBtn.classList.add('show');
       }
     }
