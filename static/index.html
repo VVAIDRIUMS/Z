@@ -1,11 +1,483 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <script src="/static/main.js"></script>
-  <link rel="stylesheet" href="/static/style.css">
   <meta charset="UTF-8" />
   <title>Знакомства</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <style>
+    /* Basic styles for dating app */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f5f2ec;
+      color: #1d1b16;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Dark theme */
+    .dark body {
+      background: #1a1a1a;
+      color: #e6e6e6;
+    }
+
+    .dark #app {
+      background: #1a1a1a;
+    }
+
+    .dark .top-bar {
+      background: #2a2a2a;
+    }
+
+    .dark .card {
+      background: #2a2a2a;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+    }
+
+    .dark button {
+      background: #2a2a2a;
+      color: #e6e6e6;
+    }
+
+    .dark .empty-text {
+      color: #999;
+    }
+
+    .dark .liked-panel,
+    .dark .who-liked-panel,
+    .dark .create-panel {
+      background: #1a1a1a;
+    }
+
+    .dark .liked-item,
+    .dark .create-card {
+      background: #2a2a2a;
+    }
+
+    .dark .create-body input,
+    .dark .create-body textarea {
+      background: #333;
+      color: #e6e6e6;
+      border-color: #444;
+    }
+
+    .dark .action-buttons button {
+      background: #2a2a2a;
+      color: #e6e6e6;
+      border: 1px solid #444;
+    }
+
+    .dark .action-buttons .skip-btn {
+      background: #3a3a3a;
+    }
+
+    .dark .action-buttons .like-btn {
+      background: #3a3a3a;
+    }
+
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: #fff;
+      flex-shrink: 0;
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .logo-img {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      background-color: #f0f0f0;
+    }
+
+    .city-filter {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #e7e2d8;
+      background: #fff;
+      font-size: 14px;
+      height: 36px;
+    }
+
+    .theme-toggle, .saved-btn, .create-btn, .profile-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-size: 18px;
+    }
+
+    .profile-dot {
+      width: 8px;
+      height: 8px;
+      background: #007aff;
+      border-radius: 50%;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .card-stack {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      height: 480px;
+      margin: 0 auto;
+    }
+
+    .card {
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    .card-inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card-photo {
+      flex: 1;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card-info {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      padding: 20px 16px 16px;
+      border-bottom-left-radius: 22px;
+      border-bottom-right-radius: 22px;
+    }
+
+    .card-name-age {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .card-city {
+      font-size: 16px;
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+
+    .card-bio {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px 0;
+      flex-shrink: 0;
+      background: #f5f2ec;
+    }
+
+    .dark .action-buttons {
+      background: #1a1a1a;
+    }
+
+    .action-buttons button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .action-buttons button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .action-buttons button:active {
+      transform: scale(0.95);
+    }
+
+    .skip-btn {
+      background: #fff;
+      color: #ff3b30;
+      border: 2px solid #ff3b30;
+    }
+
+    .like-btn {
+      background: #fff;
+      color: #34c759;
+      border: 2px solid #34c759;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .empty-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 18px;
+      color: #666;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .liked-panel, .who-liked-panel, .create-panel {
+      position: fixed;
+      inset: 0;
+      background: #f5f2ec;
+      display: none;
+      flex-direction: column;
+      padding: 12px;
+      z-index: 40;
+    }
+
+    .liked-panel[aria-hidden="false"],
+    .who-liked-panel[aria-hidden="false"],
+    .create-panel[aria-hidden="false"] {
+      display: flex;
+    }
+
+    .liked-header {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      margin-bottom: 12px;
+    }
+
+    .back-btn {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    .liked-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .liked-title-heart {
+      margin-right: 6px;
+    }
+
+    .liked-list, .who-liked-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .liked-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px;
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+
+    .create-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      max-width: 420px;
+      margin: auto;
+      width: 100%;
+    }
+
+    .create-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .create-close {
+      width: 32px;
+      height: 32px;
+      font-size: 18px;
+    }
+
+    .create-body input,
+    .create-body textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 10px;
+      border: 1px solid #e7e2d8;
+      font-family: inherit;
+    }
+
+    .create-body textarea {
+      min-height: 64px;
+      resize: vertical;
+    }
+
+    .create-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .reg-btn {
+      flex: 1;
+      padding: 12px;
+      background: #007aff;
+      color: white;
+      font-weight: 600;
+    }
+
+    .reg-btn.subtle {
+      background: #e7e2d8;
+      color: #1d1b16;
+    }
+
+    .create-preview-area {
+      margin-top: 16px;
+      display: none;
+    }
+
+    .create-preview-area[aria-hidden="false"] {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        padding: 8px 12px;
+      }
+      
+      .city-filter {
+        font-size: 12px;
+        padding: 4px 8px;
+        height: 32px;
+      }
+      
+      .card-stack {
+        height: 420px;
+        max-width: 320px;
+      }
+      
+      .card-name-age {
+        font-size: 22px;
+      }
+      
+      .action-buttons {
+        gap: 20px;
+        padding: 15px 0;
+      }
+      
+      .action-buttons button {
+        width: 55px;
+        height: 55px;
+        font-size: 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top-bar {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      
+      .logo {
+        font-size: 16px;
+      }
+      
+      .city-filter {
+        font-size: 11px;
+        padding: 3px 6px;
+      }
+      
+      .card-stack {
+        height: 380px;
+        max-width: 280px;
+      }
+      
+      .card-name-age {
+        font-size: 20px;
+      }
+      
+      .action-buttons {
+        gap: 15px;
+        padding: 12px 0;
+      }
+      
+      .action-buttons button {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div id="app">
@@ -17,26 +489,26 @@
       <!-- City filter: choose which city pool will show up -->
       <select id="city-filter" class="city-filter" aria-label="Фильтр города">
         <option value="all">Все города</option>
-        <option value="all">Москва</option>
-        <option value="all">Санкт-Петербург</option>
-        <option value="all">Екатеринбург</option>
-        <option value="all">Казань</option>
-        <option value="all">Новосибирск</option>
-        <option value="all">Владивосток</option>
-        <option value="all">Ростов-на-Дону</option>
-        <option value="all">Красноярск</option>
-        <option value="all">Воронеж</option>
-        <option value="all">Самара</option>
-        <option value="all">Омск</option>
-        <option value="all">Уфа</option>
-        <option value="all">Челябинск</option>
-        <option value="all">Пермь</option>
+        <option value="Москва">Москва</option>
+        <option value="Санкт-Петербург">Санкт-Петербург</option>
+        <option value="Екатеринбург">Екатеринбург</option>
+        <option value="Казань">Казань</option>
+        <option value="Новосибирск">Новосибирск</option>
+        <option value="Владивосток">Владивосток</option>
+        <option value="Ростов-на-Дону">Ростов-на-Дону</option>
+        <option value="Красноярск">Красноярск</option>
+        <option value="Воронеж">Воронеж</option>
+        <option value="Самара">Самара</option>
+        <option value="Омск">Омск</option>
+        <option value="Уфа">Уфа</option>
+        <option value="Челябинск">Челябинск</option>
+        <option value="Пермь">Пермь</option>
       </select>
       <!-- Gender filter: choose which gender pool will show up -->
       <select id="gender-filter" class="city-filter" aria-label="Фильтр по полу">
         <option value="all">Любой пол</option>
-        <option value="all">Мужчина</option>
-        <option value="all">Женщина</option>
+        <option value="male">Мужчина</option>
+        <option value="female">Женщина</option>
       </select>
       <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">🌓</button>
       <button id="saved-btn" class="saved-btn header-saved" aria-label="Понравившиеся">❤</button>
@@ -47,11 +519,18 @@
       </button>
     </header>
 
-    <main class="main">
-      <div class="card-stack">
-        <!-- Cards will be injected here -->
+    <div class="main-content">
+      <div class="card-container">
+        <div class="card-stack">
+          <!-- Cards will be injected here -->
+        </div>
       </div>
-    </main>
+      
+      <div class="action-buttons">
+        <button class="skip-btn" id="skip-btn" aria-label="Пропустить">✕</button>
+        <button class="like-btn" id="like-btn" aria-label="Лайк">❤</button>
+      </div>
+    </div>
 
     <!-- Liked people panel (moved out of <main> so it behaves as a separate window) -->
     <section class="liked-panel" aria-hidden="true">
@@ -100,6 +579,474 @@
     </section>
   </div>
 
-  <script type="module" src="/static/main.js"></script>
+  <script>
+    // Dating app with full functionality
+    let profiles = [];
+    let currentIndex = 0;
+    let myProfile = null;
+    let darkMode = localStorage.getItem('darkMode') === '1';
+    let likedProfiles = JSON.parse(localStorage.getItem('likedProfiles') || '[]');
+
+    // DOM elements
+    const cardStack = document.querySelector('.card-stack');
+    const themeToggle = document.getElementById('theme-toggle');
+    const createBtn = document.getElementById('create-btn');
+    const createPanel = document.querySelector('.create-panel');
+    const createClose = document.querySelector('.create-close');
+    const createSave = document.getElementById('create-save');
+    const profileBtn = document.querySelector('.profile-btn');
+    const likedPanel = document.querySelector('.liked-panel');
+    const likedList = document.querySelector('.liked-list');
+    const whoLikedPanel = document.querySelector('.who-liked-panel');
+    const whoLikedList = document.querySelector('.who-liked-list');
+    const whoLikedBtn = document.getElementById('who-liked-btn');
+    const cityFilter = document.getElementById('city-filter');
+    const genderFilter = document.getElementById('gender-filter');
+    const likeBtn = document.getElementById('like-btn');
+    const skipBtn = document.getElementById('skip-btn');
+
+    // Apply theme on load
+    function applyTheme() {
+      if (darkMode) {
+        document.documentElement.classList.add('dark');
+        if (themeToggle) themeToggle.textContent = '☀️';
+      } else {
+        document.documentElement.classList.remove('dark');
+        if (themeToggle) themeToggle.textContent = '🌙';
+      }
+    }
+    applyTheme();
+
+    // Theme toggle
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        darkMode = !darkMode;
+        localStorage.setItem('darkMode', darkMode ? '1' : '0');
+        applyTheme();
+      });
+    }
+
+    // Sample profiles (using your data)
+    const sampleProfiles = [
+      {"id": 1, "name": "Анна", "age": 24, "city": "Москва", "bio": "Люблю кофе и путешествия", "photo": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80"},
+      {"id": 2, "name": "Данил", "age": 27, "city": "Санкт-Петербург", "bio": "Музыка, спорт, кино", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80"},
+      {"id": 3, "name": "Катя", "age": 22, "city": "Москва", "bio": "Фотограф и художник", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80"},
+      {"id": 4, "name": "Илья", "age": 29, "city": "Екатеринбург", "bio": "IT-специалист, люблю программировать", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
+      {"id": 5, "name": "Маша", "age": 26, "city": "Казань", "bio": "Кондитер, пеку торты", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80"},
+      {"id": 6, "name": "Олег", "age": 31, "city": "Новосибирск", "bio": "Инженер, увлекаюсь техникой", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
+      {"id": 7, "name": "Света", "age": 23, "city": "Владивосток", "bio": "Художница, рисую портреты", "photo": "https://images.pexels.com/photos/3777916/pexels-photo-3777916.jpeg?w=800&q=80"},
+      {"id": 8, "name": "Никита", "age": 28, "city": "Ростов-на-Дону", "bio": "Разработчик, люблю Python", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
+      {"id": 9, "name": "Лера", "age": 25, "city": "Красноярск", "bio": "Музыкант, играю на гитаре", "photo": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=800&q=80"},
+      {"id": 10, "name": "Павел", "age": 30, "city": "Воронеж", "bio": "Путешественник, люблю природу", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80"},
+      {"id": 11, "name": "Оля", "age": 27, "city": "Самара", "bio": "Дизайнер, работаю с брендами", "photo": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80"},
+      {"id": 12, "name": "Роман", "age": 33, "city": "Омск", "bio": "Фотограф, снимаю ночью", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
+      {"id": 13, "name": "Юля", "age": 24, "city": "Уфа", "bio": "Йога и медитация", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80"},
+      {"id": 14, "name": "Артем", "age": 26, "city": "Челябинск", "bio": "Спортсмен, тренер по фитнесу", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
+      {"id": 15, "name": "Вика", "age": 28, "city": "Пермь", "bio": "Блогер, пишу о путешествиях", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80"}
+    ];
+
+    // Load profiles
+    function loadProfiles() {
+      // Start with all profiles
+      profiles = [...sampleProfiles];
+      
+      // Apply city filter
+      const selectedCity = cityFilter.value;
+      if (selectedCity !== 'all') {
+        profiles = profiles.filter(profile => profile.city === selectedCity);
+      }
+      
+      // Apply gender filter (simplified - assuming male names end with certain letters)
+      const selectedGender = genderFilter.value;
+      if (selectedGender !== 'all') {
+        if (selectedGender === 'male') {
+          profiles = profiles.filter(profile => 
+            ['Данил', 'Илья', 'Олег', 'Никита', 'Павел', 'Роман', 'Артем'].includes(profile.name)
+          );
+        } else if (selectedGender === 'female') {
+          profiles = profiles.filter(profile => 
+            ['Анна', 'Катя', 'Маша', 'Света', 'Лера', 'Оля', 'Юля', 'Вика'].includes(profile.name)
+          );
+        }
+      }
+      
+      currentIndex = 0;
+      renderCard();
+    }
+
+    // Render current card
+    function renderCard() {
+      if (!cardStack) return;
+      cardStack.innerHTML = '';
+      
+      if (currentIndex >= profiles.length) {
+        cardStack.innerHTML = '<div class="empty-text">Нет доступных профилей</div>';
+        return;
+      }
+      
+      const profile = profiles[currentIndex];
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-photo" style="background-image: url(${profile.photo || 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80'})"></div>
+          <div class="card-info">
+            <div class="card-name-age">${profile.name}, ${profile.age}</div>
+            <div class="card-city">${profile.city || ''}</div>
+            <div class="card-bio">${profile.bio || ''}</div>
+          </div>
+        </div>
+      `;
+      cardStack.appendChild(card);
+    }
+
+    // Next card
+    function nextCard() {
+      currentIndex++;
+      if (currentIndex >= profiles.length) {
+        currentIndex = 0; // Restart from beginning
+      }
+      renderCard();
+    }
+
+    // Like current profile
+    function likeCurrentProfile() {
+      if (currentIndex < profiles.length) {
+        const profile = profiles[currentIndex];
+        // Check if already liked
+        if (!likedProfiles.some(p => p.id === profile.id)) {
+          likedProfiles.push(profile);
+          localStorage.setItem('likedProfiles', JSON.stringify(likedProfiles));
+          
+          // Add animation effect
+          likeBtn.style.transform = 'scale(1.2)';
+          likeBtn.style.backgroundColor = '#34c759';
+          likeBtn.style.color = 'white';
+          
+          setTimeout(() => {
+            likeBtn.style.transform = 'scale(1)';
+            likeBtn.style.backgroundColor = '';
+            likeBtn.style.color = '';
+          }, 300);
+          
+          // Show notification
+          showNotification(`Вы лайкнули ${profile.name}!`);
+        }
+        nextCard();
+      }
+    }
+
+    // Skip current profile
+    function skipCurrentProfile() {
+      if (currentIndex < profiles.length) {
+        const profile = profiles[currentIndex];
+        
+        // Add animation effect
+        skipBtn.style.transform = 'scale(1.2)';
+        skipBtn.style.backgroundColor = '#ff3b30';
+        skipBtn.style.color = 'white';
+        
+        setTimeout(() => {
+          skipBtn.style.transform = 'scale(1)';
+          skipBtn.style.backgroundColor = '';
+          skipBtn.style.color = '';
+        }, 300);
+        
+        showNotification(`Вы пропустили ${profile.name}`);
+        nextCard();
+      }
+    }
+
+    // Show notification
+    function showNotification(message) {
+      // Remove existing notification
+      const existingNotification = document.querySelector('.notification');
+      if (existingNotification) {
+        existingNotification.remove();
+      }
+      
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.8);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 10px;
+        z-index: 1000;
+        font-size: 14px;
+        animation: fadeInOut 3s ease-in-out;
+      `;
+      
+      // Add styles for animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fadeInOut {
+          0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+          15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+          85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+          100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      document.body.appendChild(notification);
+      
+      // Remove notification after animation
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.remove();
+        }
+      }, 3000);
+    }
+
+    // Swipe handlers
+    let startX = 0;
+    if (cardStack) {
+      cardStack.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+      });
+      
+      cardStack.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = endX - startX;
+        if (Math.abs(diff) > 100) {
+          if (diff > 0) {
+            // Swipe right = like
+            likeCurrentProfile();
+          } else {
+            // Swipe left = skip
+            skipCurrentProfile();
+          }
+        }
+      });
+    }
+
+    // Button handlers
+    if (likeBtn) {
+      likeBtn.addEventListener('click', likeCurrentProfile);
+    }
+    
+    if (skipBtn) {
+      skipBtn.addEventListener('click', skipCurrentProfile);
+    }
+
+    // Create profile panel
+    if (createBtn) {
+      createBtn.addEventListener('click', () => {
+        if (createPanel) createPanel.setAttribute('aria-hidden', 'false');
+      });
+    }
+
+    if (createClose) {
+      createClose.addEventListener('click', () => {
+        if (createPanel) createPanel.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    // Close panels with back buttons
+    document.querySelectorAll('.back-btn, .who-back-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (likedPanel) likedPanel.setAttribute('aria-hidden', 'true');
+        if (whoLikedPanel) whoLikedPanel.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    // Save profile
+    if (createSave) {
+      createSave.addEventListener('click', () => {
+        const name = document.getElementById('create-name').value;
+        const age = document.getElementById('create-age').value;
+        const city = document.getElementById('create-city').value;
+        const photo = document.getElementById('create-photo').value;
+        const bio = document.getElementById('create-bio').value;
+        const contact = document.getElementById('create-contact').value;
+        const tags = document.getElementById('create-tags').value;
+        
+        if (!name || !age) {
+          alert('Заполните имя и возраст');
+          return;
+        }
+        
+        myProfile = { 
+          id: Date.now(),
+          name, 
+          age: parseInt(age), 
+          city, 
+          photo, 
+          bio,
+          contact,
+          tags
+        };
+        localStorage.setItem('myProfile', JSON.stringify(myProfile));
+        
+        // Add to profiles array
+        profiles.unshift(myProfile);
+        currentIndex = 0;
+        renderCard();
+        
+        showNotification('Профиль создан и добавлен в стек!');
+        if (createPanel) createPanel.setAttribute('aria-hidden', 'true');
+        
+        // Clear form
+        document.getElementById('create-name').value = '';
+        document.getElementById('create-age').value = '';
+        document.getElementById('create-city').value = '';
+        document.getElementById('create-photo').value = '';
+        document.getElementById('create-bio').value = '';
+        document.getElementById('create-contact').value = '';
+        document.getElementById('create-tags').value = '';
+      });
+    }
+
+    // View my profile
+    if (profileBtn) {
+      profileBtn.addEventListener('click', () => {
+        const saved = localStorage.getItem('myProfile');
+        if (saved) {
+          myProfile = JSON.parse(saved);
+          const msg = `Ваш профиль:\nИмя: ${myProfile.name}\nВозраст: ${myProfile.age}\nГород: ${myProfile.city || 'не указан'}\nКонтакт: ${myProfile.contact || 'не указан'}\nО себе: ${myProfile.bio || 'не указано'}\nТеги: ${myProfile.tags || 'не указаны'}`;
+          if (confirm(msg + '\n\nУдалить профиль?')) {
+            localStorage.removeItem('myProfile');
+            myProfile = null;
+            // Remove from profiles array
+            profiles = profiles.filter(p => !p.id || p.id !== myProfile?.id);
+            showNotification('Профиль удален');
+          }
+        } else {
+          alert('У вас нет профиля. Создайте его!');
+        }
+      });
+    }
+
+    // Кнопка "Понравившиеся"
+    const savedBtn = document.getElementById('saved-btn');
+    savedBtn?.addEventListener('click', () => {
+      renderLikedList();
+      likedPanel?.setAttribute('aria-hidden', 'false');
+    });
+
+    // Кнопка "Кто лайкнул меня"
+    if (whoLikedBtn) {
+      whoLikedBtn.addEventListener('click', () => {
+        renderWhoLikedList();
+        whoLikedPanel?.setAttribute('aria-hidden', 'false');
+      });
+    }
+
+    // Simulate likes from others (sample data)
+    function getWhoLikedMe() {
+      const sampleLikes = [
+        {"id": 101, "name": "Ольга", "age": 26, "city": "Москва", "bio": "Дизайнер, люблю искусство"},
+        {"id": 102, "name": "Иван", "age": 29, "city": "Санкт-Петербург", "bio": "Музыкант, путешественник"},
+        {"id": 103, "name": "Светлана", "age": 31, "city": "Новосибирск", "bio": "Врач, увлекаюсь спортом"}
+      ];
+      return sampleLikes;
+    }
+
+    function renderLikedList() {
+      if (!likedList) return;
+      likedList.innerHTML = '';
+      if (likedProfiles.length === 0) {
+        likedList.innerHTML = '<div class="empty-text">Нет понравившихся профилей</div>';
+        return;
+      }
+      likedProfiles.forEach(profile => {
+        const item = document.createElement('div');
+        item.className = 'liked-item';
+        item.innerHTML = `
+          <div><strong>${profile.name}, ${profile.age}</strong></div>
+          <div>${profile.city || 'Город не указан'}</div>
+        `;
+        likedList.appendChild(item);
+      });
+    }
+
+    function renderWhoLikedList() {
+      if (!whoLikedList) return;
+      const whoLiked = getWhoLikedMe();
+      whoLikedList.innerHTML = '';
+      if (whoLiked.length === 0) {
+        whoLikedList.innerHTML = '<div class="empty-text">Пока никто не лайкнул ваш профиль</div>';
+        return;
+      }
+      whoLiked.forEach(profile => {
+        const item = document.createElement('div');
+        item.className = 'liked-item';
+        item.innerHTML = `
+          <div><strong>${profile.name}, ${profile.age}</strong></div>
+          <div>${profile.city}</div>
+        `;
+        whoLikedList.appendChild(item);
+      });
+    }
+
+    // Create preview
+    const createPreview = document.getElementById('create-preview');
+    const createPreviewArea = document.querySelector('.create-preview-area');
+
+    createPreview?.addEventListener('click', () => {
+      const name = document.getElementById('create-name').value || "Имя";
+      const age = document.getElementById('create-age').value || "Возраст";
+      const city = document.getElementById('create-city').value || "Город";
+      const bio = document.getElementById('create-bio').value || "О себе";
+      const photo = document.getElementById('create-photo').value || "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80";
+      
+      createPreviewArea.innerHTML = `
+        <div class="card" style="position: relative; height: 320px; margin: 0 auto;">
+          <div class="card-inner">
+            <div class="card-photo" style="background-image: url(${photo})"></div>
+            <div class="card-info">
+              <div class="card-name-age">${name}, ${age}</div>
+              <div class="card-city">${city}</div>
+              <div class="card-bio">${bio}</div>
+            </div>
+          </div>
+        </div>
+        <button onclick="document.querySelector('.create-preview-area').setAttribute('aria-hidden', 'true')" style="margin-top: 12px; width: 100%; padding: 10px;">Закрыть предпросмотр</button>
+      `;
+      createPreviewArea.setAttribute('aria-hidden', 'false');
+    });
+
+    // Logo click handler
+    const logoRow = document.querySelector('.logo-row');
+    logoRow?.addEventListener('click', () => {
+      const url = prompt('Введите URL логотипа:', 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80');
+      if (url) {
+        document.getElementById('logo-img').src = url;
+      }
+    });
+
+    // Filter change handlers
+    if (cityFilter) {
+      cityFilter.addEventListener('change', loadProfiles);
+    }
+    
+    if (genderFilter) {
+      genderFilter.addEventListener('change', loadProfiles);
+    }
+
+    // Initialize app
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProfiles();
+      
+      // Load existing liked profiles
+      likedProfiles = JSON.parse(localStorage.getItem('likedProfiles') || '[]');
+      
+      // Load existing profile
+      const savedProfile = localStorage.getItem('myProfile');
+      if (savedProfile) {
+        myProfile = JSON.parse(savedProfile);
+        // Add user profile to beginning of profiles if it doesn't exist
+        if (!profiles.some(p => p.id === myProfile.id)) {
+          profiles.unshift(myProfile);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
