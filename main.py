@@ -56,11 +56,5 @@ async def startup_event():
     await create_tables()
     print("✅ База данных инициализирована")
 
-# if __name__ == "__main__":
-#     port = 8001  # МЕНЯЕМ 8000 на 8001
-#     print(f"🚀 Запуск сервера на порту {port}...")
-#     print(f"📚 Документация: http://localhost:{port}/docs")
-#     uvicorn.run(app, host="0.0.0.0", port=port, reload=True)
-
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8001, reload=True)
