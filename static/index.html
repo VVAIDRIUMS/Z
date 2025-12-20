@@ -50,17 +50,20 @@
 
     .dark .liked-panel,
     .dark .who-liked-panel,
-    .dark .create-panel {
+    .dark .create-panel,
+    .dark .profile-view-panel {
       background: #1a1a1a;
     }
 
     .dark .liked-item,
-    .dark .create-card {
+    .dark .create-card,
+    .dark .profile-view-card {
       background: #2a2a2a;
     }
 
     .dark .create-body input,
-    .dark .create-body textarea {
+    .dark .create-body textarea,
+    .dark .profile-view-info div {
       background: #333;
       color: #e6e6e6;
       border-color: #444;
@@ -175,6 +178,7 @@
       box-shadow: 0 12px 30px rgba(0,0,0,0.08);
       overflow: hidden;
       touch-action: none;
+      cursor: pointer;
     }
 
     .card-inner {
@@ -291,7 +295,7 @@
       padding: 20px;
     }
 
-    .liked-panel, .who-liked-panel, .create-panel {
+    .liked-panel, .who-liked-panel, .create-panel, .profile-view-panel {
       position: fixed;
       inset: 0;
       background: #f5f2ec;
@@ -303,7 +307,8 @@
 
     .liked-panel[aria-hidden="false"],
     .who-liked-panel[aria-hidden="false"],
-    .create-panel[aria-hidden="false"] {
+    .create-panel[aria-hidden="false"],
+    .profile-view-panel[aria-hidden="false"] {
       display: flex;
     }
 
@@ -324,6 +329,7 @@
     .liked-title {
       font-size: 18px;
       font-weight: 600;
+      flex: 1;
     }
 
     .liked-title-heart {
@@ -333,35 +339,97 @@
     .liked-list, .who-liked-list {
       flex: 1;
       overflow-y: auto;
+      padding-bottom: 10px;
     }
 
-    .liked-item {
+    .liked-item, .who-liked-item {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      align-items: center;
       padding: 12px;
       background: #fff;
       border-radius: 12px;
       margin-bottom: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
 
-    .create-card {
+    .liked-item:hover, .who-liked-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .profile-name-age {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .profile-city {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .dark .profile-city {
+      color: #aaa;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .item-action-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .view-btn {
+      background: #007aff;
+      color: white;
+    }
+
+    .unlike-btn {
+      background: #ff3b30;
+      color: white;
+    }
+
+    .like-back-btn {
+      background: #34c759;
+      color: white;
+    }
+
+    .create-card, .profile-view-card {
       background: #fff;
       border-radius: 14px;
       padding: 18px;
       max-width: 420px;
       margin: auto;
       width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
-    .create-header {
+    .create-header, .profile-view-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 16px;
     }
 
-    .create-close {
+    .create-close, .profile-view-close {
       width: 32px;
       height: 32px;
       font-size: 18px;
@@ -410,6 +478,67 @@
       display: block;
     }
 
+    .profile-view-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .profile-view-photo {
+      width: 100%;
+      height: 300px;
+      border-radius: 12px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .profile-view-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .profile-view-info div {
+      padding: 12px;
+      border-radius: 10px;
+      background: #f9f9f9;
+    }
+
+    .profile-view-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .profile-view-name {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .profile-view-age {
+      font-size: 18px;
+      color: #666;
+    }
+
+    .profile-view-field {
+      margin-bottom: 8px;
+    }
+
+    .profile-view-label {
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .profile-view-value {
+      color: #666;
+    }
+
+    .dark .profile-view-value {
+      color: #aaa;
+    }
+
     @media (max-width: 768px) {
       .top-bar {
         padding: 8px 12px;
@@ -439,6 +568,15 @@
         width: 55px;
         height: 55px;
         font-size: 22px;
+      }
+      
+      .profile-view-card {
+        padding: 14px;
+        max-width: 95%;
+      }
+      
+      .profile-view-photo {
+        height: 250px;
       }
     }
 
@@ -475,6 +613,20 @@
         width: 50px;
         height: 50px;
         font-size: 20px;
+      }
+      
+      .item-actions {
+        flex-direction: column;
+      }
+      
+      .item-action-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+      }
+      
+      .profile-view-photo {
+        height: 200px;
       }
     }
   </style>
@@ -532,7 +684,7 @@
       </div>
     </div>
 
-    <!-- Liked people panel (moved out of <main> so it behaves as a separate window) -->
+    <!-- Liked people panel -->
     <section class="liked-panel" aria-hidden="true">
       <header class="liked-header">
         <button class="back-btn" aria-label="Назад">←</button>
@@ -577,6 +729,45 @@
         </div>
       </div>
     </section>
+
+    <!-- Profile view panel -->
+    <section class="profile-view-panel" aria-hidden="true">
+      <div class="profile-view-card">
+        <header class="profile-view-header">
+          <h3>Просмотр анкеты</h3>
+          <button class="profile-view-close" aria-label="Закрыть">✕</button>
+        </header>
+        <div class="profile-view-content">
+          <div class="profile-view-photo" id="profile-view-photo"></div>
+          <div class="profile-view-info">
+            <div>
+              <div class="profile-view-name" id="profile-view-name"></div>
+              <div class="profile-view-age" id="profile-view-age"></div>
+            </div>
+            <div class="profile-view-field">
+              <span class="profile-view-label">Город:</span>
+              <span class="profile-view-value" id="profile-view-city"></span>
+            </div>
+            <div class="profile-view-field">
+              <span class="profile-view-label">О себе:</span>
+              <span class="profile-view-value" id="profile-view-bio"></span>
+            </div>
+            <div class="profile-view-field">
+              <span class="profile-view-label">Контакты:</span>
+              <span class="profile-view-value" id="profile-view-contact"></span>
+            </div>
+            <div class="profile-view-field">
+              <span class="profile-view-label">Теги:</span>
+              <span class="profile-view-value" id="profile-view-tags"></span>
+            </div>
+          </div>
+          <div class="profile-view-actions">
+            <button id="profile-view-like-btn" class="reg-btn" style="background: #34c759;">Лайкнуть</button>
+            <button id="profile-view-unlike-btn" class="reg-btn subtle" style="background: #ff3b30; color: white;">Убрать лайк</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <script>
@@ -586,6 +777,9 @@
     let myProfile = null;
     let darkMode = localStorage.getItem('darkMode') === '1';
     let likedProfiles = JSON.parse(localStorage.getItem('likedProfiles') || '[]');
+    let whoLikedMeProfiles = JSON.parse(localStorage.getItem('whoLikedMe') || '[]');
+    let currentViewingProfile = null;
+    let isViewingFromLikedList = false;
 
     // DOM elements
     const cardStack = document.querySelector('.card-stack');
@@ -604,6 +798,10 @@
     const genderFilter = document.getElementById('gender-filter');
     const likeBtn = document.getElementById('like-btn');
     const skipBtn = document.getElementById('skip-btn');
+    const profileViewPanel = document.querySelector('.profile-view-panel');
+    const profileViewClose = document.querySelector('.profile-view-close');
+    const profileViewLikeBtn = document.getElementById('profile-view-like-btn');
+    const profileViewUnlikeBtn = document.getElementById('profile-view-unlike-btn');
 
     // Apply theme on load
     function applyTheme() {
@@ -628,21 +826,21 @@
 
     // Sample profiles (using your data)
     const sampleProfiles = [
-      {"id": 1, "name": "Анна", "age": 24, "city": "Москва", "bio": "Люблю кофе и путешествия", "photo": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80"},
-      {"id": 2, "name": "Данил", "age": 27, "city": "Санкт-Петербург", "bio": "Музыка, спорт, кино", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80"},
-      {"id": 3, "name": "Катя", "age": 22, "city": "Москва", "bio": "Фотограф и художник", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80"},
-      {"id": 4, "name": "Илья", "age": 29, "city": "Екатеринбург", "bio": "IT-специалист, люблю программировать", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
-      {"id": 5, "name": "Маша", "age": 26, "city": "Казань", "bio": "Кондитер, пеку торты", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80"},
-      {"id": 6, "name": "Олег", "age": 31, "city": "Новосибирск", "bio": "Инженер, увлекаюсь техникой", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
-      {"id": 7, "name": "Света", "age": 23, "city": "Владивосток", "bio": "Художница, рисую портреты", "photo": "https://images.pexels.com/photos/3777916/pexels-photo-3777916.jpeg?w=800&q=80"},
-      {"id": 8, "name": "Никита", "age": 28, "city": "Ростов-на-Дону", "bio": "Разработчик, люблю Python", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
-      {"id": 9, "name": "Лера", "age": 25, "city": "Красноярск", "bio": "Музыкант, играю на гитаре", "photo": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=800&q=80"},
-      {"id": 10, "name": "Павел", "age": 30, "city": "Воронеж", "bio": "Путешественник, люблю природу", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80"},
-      {"id": 11, "name": "Оля", "age": 27, "city": "Самара", "bio": "Дизайнер, работаю с брендами", "photo": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80"},
-      {"id": 12, "name": "Роман", "age": 33, "city": "Омск", "bio": "Фотограф, снимаю ночью", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80"},
-      {"id": 13, "name": "Юля", "age": 24, "city": "Уфа", "bio": "Йога и медитация", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80"},
-      {"id": 14, "name": "Артем", "age": 26, "city": "Челябинск", "bio": "Спортсмен, тренер по фитнесу", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80"},
-      {"id": 15, "name": "Вика", "age": 28, "city": "Пермь", "bio": "Блогер, пишу о путешествиях", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80"}
+      {"id": 1, "name": "Анна", "age": 24, "city": "Москва", "bio": "Люблю кофе и путешествия", "photo": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80", "contact": "@anna_travel", "tags": "путешествия, кофе, фотография"},
+      {"id": 2, "name": "Данил", "age": 27, "city": "Санкт-Петербург", "bio": "Музыка, спорт, кино", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80", "contact": "@danil_music", "tags": "музыка, спорт, кино"},
+      {"id": 3, "name": "Катя", "age": 22, "city": "Москва", "bio": "Фотограф и художник", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80", "contact": "@katya_art", "tags": "фотография, искусство, живопись"},
+      {"id": 4, "name": "Илья", "age": 29, "city": "Екатеринбург", "bio": "IT-специалист, люблю программировать", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80", "contact": "@ilya_dev", "tags": "программирование, IT, технологии"},
+      {"id": 5, "name": "Маша", "age": 26, "city": "Казань", "bio": "Кондитер, пеку торты", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80", "contact": "@masha_cakes", "tags": "выпечка, кулинария, десерты"},
+      {"id": 6, "name": "Олег", "age": 31, "city": "Новосибирск", "bio": "Инженер, увлекаюсь техникой", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80", "contact": "+7 999 123 45 67", "tags": "техника, инженерия, авто"},
+      {"id": 7, "name": "Света", "age": 23, "city": "Владивосток", "bio": "Художница, рисую портреты", "photo": "https://images.pexels.com/photos/3777916/pexels-photo-3777916.jpeg?w=800&q=80", "contact": "@sveta_art", "tags": "портреты, искусство, творчество"},
+      {"id": 8, "name": "Никита", "age": 28, "city": "Ростов-на-Дону", "bio": "Разработчик, люблю Python", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80", "contact": "@nikita_python", "tags": "Python, разработка, open source"},
+      {"id": 9, "name": "Лера", "age": 25, "city": "Красноярск", "bio": "Музыкант, играю на гитаре", "photo": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=800&q=80", "contact": "@lera_guitar", "tags": "музыка, гитара, концерты"},
+      {"id": 10, "name": "Павел", "age": 30, "city": "Воронеж", "bio": "Путешественник, люблю природу", "photo": "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?w=800&q=80", "contact": "@pavel_travel", "tags": "путешествия, природа, hiking"},
+      {"id": 11, "name": "Оля", "age": 27, "city": "Самара", "bio": "Дизайнер, работаю с брендами", "photo": "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80", "contact": "@olya_design", "tags": "дизайн, брендинг, графика"},
+      {"id": 12, "name": "Роман", "age": 33, "city": "Омск", "bio": "Фотограф, снимаю ночью", "photo": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?w=800&q=80", "contact": "@roman_night", "tags": "фотография, ночь, астрофото"},
+      {"id": 13, "name": "Юля", "age": 24, "city": "Уфа", "bio": "Йога и медитация", "photo": "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?w=800&q=80", "contact": "@yulia_yoga", "tags": "йога, медитация, здоровье"},
+      {"id": 14, "name": "Артем", "age": 26, "city": "Челябинск", "bio": "Спортсмен, тренер по фитнесу", "photo": "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800&q=80", "contact": "@artem_fit", "tags": "фитнес, спорт, тренировки"},
+      {"id": 15, "name": "Вика", "age": 28, "city": "Пермь", "bio": "Блогер, пишу о путешествиях", "photo": "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?w=800&q=80", "contact": "@vika_blog", "tags": "блог, путешествия, писательство"}
     ];
 
     // Load profiles
@@ -656,7 +854,7 @@
         profiles = profiles.filter(profile => profile.city === selectedCity);
       }
       
-      // Apply gender filter (simplified - assuming male names end with certain letters)
+      // Apply gender filter
       const selectedGender = genderFilter.value;
       if (selectedGender !== 'all') {
         if (selectedGender === 'male') {
@@ -713,12 +911,25 @@
     function likeCurrentProfile() {
       if (currentIndex < profiles.length) {
         const profile = profiles[currentIndex];
-        // Check if already liked
-        if (!likedProfiles.some(p => p.id === profile.id)) {
-          likedProfiles.push(profile);
-          localStorage.setItem('likedProfiles', JSON.stringify(likedProfiles));
-          
-          // Add animation effect
+        likeProfile(profile);
+      }
+    }
+
+    // Like a specific profile
+    function likeProfile(profile) {
+      // Check if already liked
+      if (!likedProfiles.some(p => p.id === profile.id)) {
+        likedProfiles.push(profile);
+        localStorage.setItem('likedProfiles', JSON.stringify(likedProfiles));
+        
+        // Add to "who liked me" for that profile (simulated)
+        if (!whoLikedMeProfiles.some(p => p.id === profile.id)) {
+          whoLikedMeProfiles.push(profile);
+          localStorage.setItem('whoLikedMe', JSON.stringify(whoLikedMeProfiles));
+        }
+        
+        // Add animation effect
+        if (likeBtn) {
           likeBtn.style.transform = 'scale(1.2)';
           likeBtn.style.backgroundColor = '#34c759';
           likeBtn.style.color = 'white';
@@ -728,12 +939,24 @@
             likeBtn.style.backgroundColor = '';
             likeBtn.style.color = '';
           }, 300);
-          
-          // Show notification
-          showNotification(`Вы лайкнули ${profile.name}!`);
         }
-        nextCard();
+        
+        showNotification(`Вы лайкнули ${profile.name}!`);
+        return true;
       }
+      return false;
+    }
+
+    // Unlike a profile
+    function unlikeProfile(profile) {
+      const index = likedProfiles.findIndex(p => p.id === profile.id);
+      if (index !== -1) {
+        likedProfiles.splice(index, 1);
+        localStorage.setItem('likedProfiles', JSON.stringify(likedProfiles));
+        showNotification(`Лайк для ${profile.name} убран`);
+        return true;
+      }
+      return false;
     }
 
     // Skip current profile
@@ -742,15 +965,17 @@
         const profile = profiles[currentIndex];
         
         // Add animation effect
-        skipBtn.style.transform = 'scale(1.2)';
-        skipBtn.style.backgroundColor = '#ff3b30';
-        skipBtn.style.color = 'white';
-        
-        setTimeout(() => {
-          skipBtn.style.transform = 'scale(1)';
-          skipBtn.style.backgroundColor = '';
-          skipBtn.style.color = '';
-        }, 300);
+        if (skipBtn) {
+          skipBtn.style.transform = 'scale(1.2)';
+          skipBtn.style.backgroundColor = '#ff3b30';
+          skipBtn.style.color = 'white';
+          
+          setTimeout(() => {
+            skipBtn.style.transform = 'scale(1)';
+            skipBtn.style.backgroundColor = '';
+            skipBtn.style.color = '';
+          }, 300);
+        }
         
         showNotification(`Вы пропустили ${profile.name}`);
         nextCard();
@@ -856,6 +1081,14 @@
       });
     });
 
+    // Close profile view panel
+    if (profileViewClose) {
+      profileViewClose.addEventListener('click', () => {
+        profileViewPanel.setAttribute('aria-hidden', 'true');
+        currentViewingProfile = null;
+      });
+    }
+
     // Save profile
     if (createSave) {
       createSave.addEventListener('click', () => {
@@ -940,12 +1173,8 @@
 
     // Simulate likes from others (sample data)
     function getWhoLikedMe() {
-      const sampleLikes = [
-        {"id": 101, "name": "Ольга", "age": 26, "city": "Москва", "bio": "Дизайнер, люблю искусство"},
-        {"id": 102, "name": "Иван", "age": 29, "city": "Санкт-Петербург", "bio": "Музыкант, путешественник"},
-        {"id": 103, "name": "Светлана", "age": 31, "city": "Новосибирск", "bio": "Врач, увлекаюсь спортом"}
-      ];
-      return sampleLikes;
+      // Return real data from storage
+      return whoLikedMeProfiles;
     }
 
     function renderLikedList() {
@@ -959,10 +1188,55 @@
         const item = document.createElement('div');
         item.className = 'liked-item';
         item.innerHTML = `
-          <div><strong>${profile.name}, ${profile.age}</strong></div>
-          <div>${profile.city || 'Город не указан'}</div>
+          <div class="profile-info">
+            <div class="profile-name-age">${profile.name}, ${profile.age}</div>
+            <div class="profile-city">${profile.city || 'Город не указан'}</div>
+          </div>
+          <div class="item-actions">
+            <button class="item-action-btn view-btn" data-id="${profile.id}" title="Просмотреть анкету">👁</button>
+            <button class="item-action-btn unlike-btn" data-id="${profile.id}" title="Убрать лайк">✕</button>
+          </div>
         `;
         likedList.appendChild(item);
+      });
+      
+      // Add event listeners for buttons
+      document.querySelectorAll('.liked-item .view-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const profileId = parseInt(btn.getAttribute('data-id'));
+          const profile = likedProfiles.find(p => p.id === profileId);
+          if (profile) {
+            isViewingFromLikedList = true;
+            viewProfile(profile);
+          }
+        });
+      });
+      
+      document.querySelectorAll('.liked-item .unlike-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const profileId = parseInt(btn.getAttribute('data-id'));
+          const profile = likedProfiles.find(p => p.id === profileId);
+          if (profile) {
+            unlikeProfile(profile);
+            renderLikedList();
+          }
+        });
+      });
+      
+      // Make entire item clickable to view profile
+      document.querySelectorAll('.liked-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          if (!e.target.closest('.item-actions')) {
+            const profileId = parseInt(item.querySelector('.view-btn')?.getAttribute('data-id'));
+            const profile = likedProfiles.find(p => p.id === profileId);
+            if (profile) {
+              isViewingFromLikedList = true;
+              viewProfile(profile);
+            }
+          }
+        });
       });
     }
 
@@ -975,13 +1249,148 @@
         return;
       }
       whoLiked.forEach(profile => {
+        const isLikedBack = likedProfiles.some(p => p.id === profile.id);
         const item = document.createElement('div');
-        item.className = 'liked-item';
+        item.className = 'who-liked-item';
         item.innerHTML = `
-          <div><strong>${profile.name}, ${profile.age}</strong></div>
-          <div>${profile.city}</div>
+          <div class="profile-info">
+            <div class="profile-name-age">${profile.name}, ${profile.age}</div>
+            <div class="profile-city">${profile.city}</div>
+          </div>
+          <div class="item-actions">
+            <button class="item-action-btn view-btn" data-id="${profile.id}" title="Просмотреть анкету">👁</button>
+            ${isLikedBack ? 
+              '<button class="item-action-btn unlike-btn" data-id="' + profile.id + '" title="Убрать лайк">✕</button>' : 
+              '<button class="item-action-btn like-back-btn" data-id="' + profile.id + '" title="Лайкнуть в ответ">❤</button>'
+            }
+          </div>
         `;
         whoLikedList.appendChild(item);
+      });
+      
+      // Add event listeners for buttons
+      document.querySelectorAll('.who-liked-item .view-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const profileId = parseInt(btn.getAttribute('data-id'));
+          const profile = whoLikedMeProfiles.find(p => p.id === profileId);
+          if (profile) {
+            isViewingFromLikedList = false;
+            viewProfile(profile);
+          }
+        });
+      });
+      
+      document.querySelectorAll('.who-liked-item .like-back-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const profileId = parseInt(btn.getAttribute('data-id'));
+          const profile = whoLikedMeProfiles.find(p => p.id === profileId);
+          if (profile) {
+            likeProfile(profile);
+            renderWhoLikedList();
+          }
+        });
+      });
+      
+      document.querySelectorAll('.who-liked-item .unlike-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const profileId = parseInt(btn.getAttribute('data-id'));
+          const profile = whoLikedMeProfiles.find(p => p.id === profileId);
+          if (profile) {
+            unlikeProfile(profile);
+            renderWhoLikedList();
+          }
+        });
+      });
+      
+      // Make entire item clickable to view profile
+      document.querySelectorAll('.who-liked-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          if (!e.target.closest('.item-actions')) {
+            const profileId = parseInt(item.querySelector('.view-btn')?.getAttribute('data-id'));
+            const profile = whoLikedMeProfiles.find(p => p.id === profileId);
+            if (profile) {
+              isViewingFromLikedList = false;
+              viewProfile(profile);
+            }
+          }
+        });
+      });
+    }
+
+    // View profile function
+    function viewProfile(profile) {
+      currentViewingProfile = profile;
+      
+      // Fill profile view
+      document.getElementById('profile-view-photo').style.backgroundImage = `url(${profile.photo || 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?w=800&q=80'})`;
+      document.getElementById('profile-view-name').textContent = profile.name;
+      document.getElementById('profile-view-age').textContent = `${profile.age} лет`;
+      document.getElementById('profile-view-city').textContent = profile.city || 'Не указан';
+      document.getElementById('profile-view-bio').textContent = profile.bio || 'Не указано';
+      document.getElementById('profile-view-contact').textContent = profile.contact || 'Не указан';
+      document.getElementById('profile-view-tags').textContent = profile.tags || 'Не указаны';
+      
+      // Show/hide appropriate buttons
+      const isLiked = likedProfiles.some(p => p.id === profile.id);
+      if (isLiked) {
+        profileViewLikeBtn.style.display = 'none';
+        profileViewUnlikeBtn.style.display = 'block';
+      } else {
+        profileViewLikeBtn.style.display = 'block';
+        profileViewUnlikeBtn.style.display = 'none';
+      }
+      
+      // Show profile view panel
+      profileViewPanel.setAttribute('aria-hidden', 'false');
+    }
+
+    // Profile view like button
+    if (profileViewLikeBtn) {
+      profileViewLikeBtn.addEventListener('click', () => {
+        if (currentViewingProfile) {
+          if (likeProfile(currentViewingProfile)) {
+            // Update button visibility
+            profileViewLikeBtn.style.display = 'none';
+            profileViewUnlikeBtn.style.display = 'block';
+            
+            // Update lists if they're open
+            if (isViewingFromLikedList) {
+              renderLikedList();
+            } else {
+              renderWhoLikedList();
+            }
+          }
+        }
+      });
+    }
+
+    // Profile view unlike button
+    if (profileViewUnlikeBtn) {
+      profileViewUnlikeBtn.addEventListener('click', () => {
+        if (currentViewingProfile) {
+          if (unlikeProfile(currentViewingProfile)) {
+            // Update button visibility
+            profileViewLikeBtn.style.display = 'block';
+            profileViewUnlikeBtn.style.display = 'none';
+            
+            // Update lists if they're open
+            if (isViewingFromLikedList) {
+              renderLikedList();
+            } else {
+              renderWhoLikedList();
+            }
+            
+            // If viewing from liked list, close profile view
+            if (isViewingFromLikedList) {
+              setTimeout(() => {
+                profileViewPanel.setAttribute('aria-hidden', 'true');
+              }, 500);
+            }
+          }
+        }
       });
     }
 
@@ -1036,6 +1445,7 @@
       
       // Load existing liked profiles
       likedProfiles = JSON.parse(localStorage.getItem('likedProfiles') || '[]');
+      whoLikedMeProfiles = JSON.parse(localStorage.getItem('whoLikedMe') || '[]');
       
       // Load existing profile
       const savedProfile = localStorage.getItem('myProfile');
